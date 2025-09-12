@@ -8,13 +8,12 @@ import { ProdutosProvider } from './context/produtosProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <Routes>
       <ProdutosProvider>
-        <Route path="/" element={<App />} />
-      </ProdutosProvider>
+    <Routes>
+      <Route path="/" element={<App />} />
       <Route path="/login" element={<Login />} />
       <Route path="/admin" element={<Admin />} />
- 
     </Routes>
+      </ProdutosProvider>
   </BrowserRouter>
 )
