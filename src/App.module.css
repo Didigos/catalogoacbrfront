@@ -1,0 +1,38 @@
+.header {
+    width: 99vw;
+    height: 15vh;
+    border: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.header__items {
+    display: flex;
+    width: 100%;
+    height: 70%;
+    border: 1px solid red;
+}
+
+.header__nav__item {
+    width: 20%;
+    min-height: 100%;
+    background-color: chartreuse;
+}
+
+.header__title__item {
+    width: 60%;
+    height: 100%;
+    background-color: blueviolet;
+}
+
+.header__logo__item {
+    width: 20%;
+    background-color: blue;
+}
+
+.searchbar {
+    width: 100%;
+    height: 30%;
+    background-color: chocolate;
+}
