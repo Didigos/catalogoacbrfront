@@ -117,7 +117,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: green;
     font-weight: bold;
     border-radius: 10px;
 
@@ -128,26 +127,44 @@
 }
 
 .price__pix__title {
-    font-size: 1.9rem;
+    width: 196px;
+    height: 62px;;
+    font-size: 2.8rem;
+    color: white;
+    background-color: rgb(4, 172, 4);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: end;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pix__cifrao {
+position: absolute;
+    font-size: 1.2rem;
+    top: 15px;
+    left: 18px;
 }
 
 .price__maxCredit__p {
     position: absolute;
     top: 17px;
-    left: 15px;
+    right: 15px;
 }
 
 .price__maxCredit__p__sub {
     position: absolute;
     top: 70px;
-    left: 17px;
+    right: 17px;
     font-size: .7rem;
 }
 
 .price__pix__p {
     position: absolute;
-    top: 68px;
-    right: 16px;
+    top: 79px;
+    left: 22px;
     font-size: .7rem;
-    text-align: right;
+    color: #ffffff;
 }
