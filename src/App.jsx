@@ -44,6 +44,11 @@ function App() {
         </header>
         <section className={styles.products}>
           <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
         </section>
       </main>
     </>

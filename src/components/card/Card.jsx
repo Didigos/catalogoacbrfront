@@ -11,9 +11,6 @@ import {
 import SelectPayment from "../SelectPayment/SelectPayment";
 
 const Card = () => {
-
-
-
   return (
     <main className={styles.main}>
       <section className={styles.product__section__info}>
@@ -88,8 +85,18 @@ const Card = () => {
               </span>
               <SelectPayment />
             </div>
-
           </div>
+        </div>
+      </section>
+      <section className={styles.price__container}>
+        <div className={styles.price__maxCredit}>
+          <p className={styles.price__maxCredit__p}>Em até 10x de:</p>
+          <h1 className={styles.price__maxCredit__title}>R$2.499,90</h1>
+          <p className={styles.price__maxCredit__p__sub}>no cartão de crédito</p>
+        </div>
+        <div className={styles.price__maxpix}>
+          <p className={styles.price__pix__p}>A vista <br /> no pix ou dinheiro</p>
+          <h1 className={styles.price__pix__title}>R$ 2.199,90</h1>
         </div>
       </section>
     </main>
