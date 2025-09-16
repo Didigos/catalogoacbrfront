@@ -97,11 +97,9 @@
 }
 
 .price__container {
+    margin-top: 10px;
     width: 46%;
     height: 6vh;
-    position: absolute;
-    bottom: 11%;
-    left: 2%;
 }
 
 .price__text {

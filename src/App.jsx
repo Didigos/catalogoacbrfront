@@ -42,9 +42,13 @@ function App() {
             </div>
           </div>{" "}
         </header>
-        <section className={styles.products}>
+        <Card />
+        <Card />
+        <Card />
+        {/* <section className={styles.products}>
           <Card />
-        </section>
+          <Card />
+        </section> */}
       </main>
     </>
   );
