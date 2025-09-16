@@ -88,19 +88,9 @@ const Card = () => {
           </div>
         </div>
       </section>
-      <section className={styles.price__container}>
-
-        <div className={styles.price__maxpix}>
-          <p className={styles.price__pix__p}>A vista no pix ou dinheiro</p>
-          <h1 className={styles.price__pix__title}><span className={styles.pix__cifrao}>R$</span>2.199,90</h1>
+        <div className={styles.price__container}>
+          <p style={{fontSize: ".9rem",fontWeight: "bold", color: "#666"}}>R$ 2.499,90 ou em até 10x de R$ 287,36 ou <span style={{fontSize: "1.2rem", color: "#46C262", fontWeight: "bold"}}>R$ 2.199,90 </span> <span style={{fontSize: ".7rem",color: "#46C262", fontWeight: "bold"}}> <br />No Pix / dinheiro</span></p>
         </div>
-
-        <div className={styles.price__maxCredit}>
-          <p className={styles.price__maxCredit__p}>Ou em até 10x de:</p>
-          <h1 className={styles.price__maxCredit__title}>R$287,36</h1>
-          <p className={styles.price__maxCredit__p__sub}>no cartão de crédito</p>
-        </div>
-      </section>
     </main>
   );
 };
