@@ -1,6 +1,6 @@
 .main {
     width: 98%;
-    height: 33vh;
+    height: 35vh;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1.5px 4px rgba(0, 0, 0, 0.08);
@@ -100,6 +100,10 @@
     width: 46%;
     height: 6vh;
     position: absolute;
-    bottom: 6%;
+    bottom: 11%;
     left: 2%;
+}
+
+.price__text {
+   line-height: 1.1;
 }

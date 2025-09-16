@@ -24,17 +24,20 @@ function SelectPayment() {
 
   const customStyles = {
     control: (provided) => ({
+      //aqui você configura o estilo do select
       ...provided,
-      height: "45px",
+      height: "20px", // altura
       fontSize: ".9rem", // tamanho da fonte
       width: "160px", // largura
     }),
     valueContainer: (provided) => ({
+      //aqui você configura o estilo do container que envolve o valor selecionado
       ...provided,
-      height: "48px",
+      height: "20px",
       padding: "0 12px",
     }),
     input: (provided) => ({
+      //aqui você configura o estilo do input
       ...provided,
       margin: "0px",
     }),
@@ -45,6 +48,7 @@ function SelectPayment() {
       <Select
         styles={customStyles}
         options={tipoCartaoOptions}
+        isSearchable={false}
         value={tipo}
         onChange={(selected) => {
           setTipo(selected);

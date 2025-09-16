@@ -89,7 +89,7 @@ const Card = () => {
         </div>
       </section>
         <div className={styles.price__container}>
-          <p style={{fontSize: ".9rem",fontWeight: "bold", color: "#666"}}>R$ 2.499,90 ou em até 10x de R$ 287,36 ou <span style={{fontSize: "1.2rem", color: "#46C262", fontWeight: "bold"}}>R$ 2.199,90 </span> <span style={{fontSize: ".7rem",color: "#46C262", fontWeight: "bold"}}> <br />No Pix / dinheiro</span></p>
+          <p className={styles.price__text} style={{fontSize: ".9rem",fontWeight: "bold", color: "#666"}}>R$ 2.499,90 ou em até 10x de R$ 287,36 ou <span style={{fontSize: "1.4rem", color: "#46C262", fontWeight: "bold"}}>R$ 2.199,90 </span> <span style={{fontSize: ".7rem",color: "#46C262", fontWeight: "bold"}}> <br />No Pix / dinheiro</span></p>
         </div>
     </main>
   );
