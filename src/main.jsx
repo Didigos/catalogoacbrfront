@@ -6,9 +6,11 @@ import Login from "./pages/login/Login.jsx";
 import Admin from "./pages/admin/Admin.jsx";
 import { ProdutosProvider } from "./context/produtosProvider.jsx";
 import { TaxasProvider } from "./context/taxasProvider.jsx";
+import { UserProvider } from "./context/UserProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
+  <UserProvider>
     <TaxasProvider>
       <ProdutosProvider>
         <Routes>
@@ -18,5 +20,6 @@ createRoot(document.getElementById("root")).render(
         </Routes>
       </ProdutosProvider>
     </TaxasProvider>
+    </UserProvider>
   </BrowserRouter>
 );
