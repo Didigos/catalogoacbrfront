@@ -2,8 +2,28 @@ import styles from "./App.module.css";
 import HamburgerMenu from "./components/menu/hamburguerMenu";
 import logo from "./assets/logo.svg";
 import Card from "./components/card/Card";
+import { useContext, useEffect, useState } from "react";
+import ProdutosContext from "./context/produtosContext";
+import axios from "axios";
 
 function App() {
+  const produtos = useContext(ProdutosContext);
+  const [selectedProduct, setSelectedProduct] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios.get("http://localhost:3000/smartphones")
+      .then((response) => {
+        console.log(typeof(response.data));
+        setSelectedProduct(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar produtos:", error);
+      });
+    }
+    fetchData();
+  }, [produtos]);
+
   return (
     <>
       <main className={styles.main}>
@@ -22,7 +42,6 @@ function App() {
           <div className={styles.searchbar}>
             <div className={styles.searchbar__container}>
               <span className={styles.searchbar__icon}>
-                {/* Ícone SVG de lupa */}
                 <svg
                   width="16"
                   height="16"
@@ -40,15 +59,11 @@ function App() {
                 placeholder="Buscar no catalogo"
               />
             </div>
-          </div>{" "}
+          </div>
         </header>
-        <Card />
-        <Card />
-        <Card />
-        {/* <section className={styles.products}>
-          <Card />
-          <Card />
-        </section> */}
+        {selectedProduct.map(produtos => (
+          <Card key={produtos.id} produtos={produtos} />
+        ))}
       </main>
     </>
   );

@@ -1,6 +1,5 @@
 import styles from "./Card.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Select from "react-select";
 import {
   faMicrochip,
   faDatabase,
@@ -9,8 +8,26 @@ import {
   faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 import SelectPayment from "../SelectPayment/SelectPayment";
+import { useEffect, useState } from "react";
+import { useContext } from "react";
+import TaxasContext from "../../context/taxasContext";
 
-const Card = () => {
+
+const Card = ({produtos}) => {
+  const { taxas, setTaxas, loading } = useContext(TaxasContext);
+  const [comTaxa, setComTaxa] = useState(0);
+
+  const calcularPrecoComTaxa = (precoBase, taxa) => {
+    const precoComTaxa =  (precoBase - (precoBase * taxa / 100).toFixed(2)) / 10;
+    setComTaxa(precoComTaxa);
+  }
+
+  useEffect(() => {
+   const precoComTaxa = calcularPrecoComTaxa(produtos.precobase, taxas[0].credito['10x'] || 0);
+    console.log('preco com taxa: ', precoComTaxa)
+
+  }, [produtos, taxas]);
+
   return (
     <main className={styles.main}>
       <section className={styles.product__section__info}>
@@ -19,7 +36,7 @@ const Card = () => {
         </div>
         <div className={styles.product__datas}>
           <div className={styles.product__title}>
-            <h1>POCO X7 PRO</h1>
+            <h1>{produtos.nome}</h1>
           </div>
           <div className={styles.product__specs}>
             <div className={styles.specification}>
@@ -31,7 +48,7 @@ const Card = () => {
                   Processador
                 </div>
                 <div className={styles.specification__text__desc}>
-                  Snapdragon
+                  {produtos.detalhes.processador}
                 </div>
               </div>
             </div>
@@ -41,7 +58,7 @@ const Card = () => {
               </div>
               <div className={styles.specification__text}>
                 <div className={styles.specification__text__title}>Camera</div>
-                <div className={styles.specification__text__desc}>50Mp</div>
+                <div className={styles.specification__text__desc}>{produtos.detalhes.camera}</div>
               </div>
             </div>
             <div className={styles.specification}>
@@ -54,7 +71,7 @@ const Card = () => {
               </div>
               <div className={styles.specification__text}>
                 <div className={styles.specification__text__title}>Bateria</div>
-                <div className={styles.specification__text__desc}>5110 mAh</div>
+                <div className={styles.specification__text__desc}>{produtos.detalhes.bateria}</div>
               </div>
             </div>
             <div className={styles.specification}>
@@ -65,7 +82,7 @@ const Card = () => {
                 <div className={styles.specification__text__title}>
                   Armazenamento
                 </div>
-                <div className={styles.specification__text__desc}>512 Gb</div>
+                <div className={styles.specification__text__desc}>{produtos.detalhes.armazenamento}</div>
               </div>
             </div>
             <div className={styles.specification}>
@@ -74,7 +91,7 @@ const Card = () => {
               </div>
               <div className={styles.specification__text}>
                 <div className={styles.specification__text__title}>Memória</div>
-                <div className={styles.specification__text__desc}>12 Gb</div>
+                <div className={styles.specification__text__desc}>{produtos.detalhes.memoria}</div>
               </div>
             </div>
           </div>
@@ -93,16 +110,16 @@ const Card = () => {
           className={styles.price__text}
           style={{ fontSize: ".9rem", fontWeight: "bold", color: "#666" }}
         >
-          R$ 2.499,90 em até 10x de R$ 287,36 ou <br />{" "}
+          {produtos.precobase.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} em até 10x de {comTaxa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} ou <br />
           <span
             style={{ fontSize: "1.4rem", color: "#46C262", fontWeight: "bold" }}
           >
-            R$ 2.199,90{" "}
-          </span>{" "}
+            {produtos.precopix.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+          </span>
           <span
             style={{ fontSize: ".7rem", color: "#46C262", fontWeight: "bold" }}
           >
-            {" "}
+            
             <br />
             No Pix / dinheiro
           </span>

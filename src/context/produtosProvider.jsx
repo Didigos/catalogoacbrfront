@@ -8,7 +8,9 @@ export function ProdutosProvider({ children }) {
 
   useEffect(() => {
     axios.get("http://localhost:3000/smartphones")
-      .then((res) => setProdutos(res.data))
+      .then((res) => {
+        setProdutos(res.data)
+      })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, []);
