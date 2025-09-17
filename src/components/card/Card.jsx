@@ -14,19 +14,25 @@ import TaxasContext from "../../context/taxasContext";
 
 
 const Card = ({produtos}) => {
-  const { taxas, setTaxas, loading } = useContext(TaxasContext);
+  const { taxas, loading } = useContext(TaxasContext); 
   const [comTaxa, setComTaxa] = useState(0);
 
   const calcularPrecoComTaxa = (precoBase, taxa) => {
-    const precoComTaxa =  (precoBase - (precoBase * taxa / 100).toFixed(2)) / 10;
-    setComTaxa(precoComTaxa);
+    const precoComTaxa =  (precoBase + (precoBase * taxa / 100));
+    const valorParcela = precoComTaxa / 10;
+    setComTaxa(valorParcela);
   }
 
-  useEffect(() => {
-   const precoComTaxa = calcularPrecoComTaxa(produtos.precobase, taxas[0].credito['10x'] || 0);
-    console.log('preco com taxa: ', precoComTaxa)
+useEffect(() => {
+  if (taxas && taxas[0] && taxas[0].credito) {
+    calcularPrecoComTaxa(produtos.precobase, taxas[0].credito['10x'] || 0);
+  }
+}, [produtos, taxas]);
 
-  }, [produtos, taxas]);
+ if (loading || !taxas || !taxas[0] || !taxas[0].credito) {
+    return <p>Carregando...</p>;
+  }
+
 
   return (
     <main className={styles.main}>
@@ -101,7 +107,12 @@ const Card = ({produtos}) => {
                 Forma de Pagamento
               </span>
             </div>
-              <SelectPayment />
+              <SelectPayment 
+              precobase={produtos.precobase}
+              taxas={taxas}
+              productName={produtos.nome}
+              memory={produtos.detalhes.memoria}
+              />
           </div>
         </div>
       </section>
@@ -119,7 +130,6 @@ const Card = ({produtos}) => {
           <span
             style={{ fontSize: ".7rem", color: "#46C262", fontWeight: "bold" }}
           >
-            
             <br />
             No Pix / dinheiro
           </span>

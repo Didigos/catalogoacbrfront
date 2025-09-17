@@ -31,7 +31,7 @@
 
 .login__input {
     width: 80%;
-    height: 5vh;
+    height: 7vh;
     border: 1px solid #02B2FE;
     border-radius: 10px;
     font-size: 1.2rem;
@@ -59,14 +59,14 @@
 .login__label {
     position: absolute;
     left: 43px;
-    top: 24%;
+    top: 18%;
     padding: 5px;
     background-color: #ffffff;
 }
 
 .password__label {
     position: absolute;
-    top: 48%;
+    top: 49%;
     left: 15%;
     padding: 5px;
     background-color: #ffffff;
