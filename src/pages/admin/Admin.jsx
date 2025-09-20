@@ -1,12 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styles from "./Admin.module.css"
-import { faGear } from "@fortawesome/free-solid-svg-icons"
+import { faGear, faCircleExclamation, faUser, faBox, faClipboardList, faPercent } from "@fortawesome/free-solid-svg-icons"
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
+import { useNavigate } from "react-router";
 
 const Admin = () =>{
     const {user, loading} = useContext(UserContext);
- 
+    const navigate = useNavigate();
+
     if(loading){
         return <div>Carregando...</div>
     }
@@ -23,6 +25,24 @@ const Admin = () =>{
                     <span>Olá, {user.nome}</span>
                 </div>
             </header>
+            <section className={styles.admin__dev__warning}>
+                <div className={styles.admin__warning__header}>
+                    <div className={styles.admin__warning__icon}>
+                        <FontAwesomeIcon icon={faCircleExclamation} size="1x" />
+                    </div>
+                    <h2 className={styles.admin__warning__title}>ULTIMAS ATUALIZAÇÕES</h2>
+                </div>
+                <div className={styles.admin__warning__text}>
+                    <span>Aqui vão ficar informações sobre as últimas atualizações. e/ou avisos sobre o site</span>
+                </div>
+            </section>
+
+            <section className={styles.admin__buttons}>
+                <button onClick={() => navigate("/usuarios")} style={{ backgroundColor: "#A6A2A2" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faUser} /></span>Usuários</button>
+                <button onClick={() => navigate("/produtos")} style={{ backgroundColor: "#FFB042" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faBox} /></span>Produtos</button>
+                <button onClick={() => navigate("/pedidos")} style={{ backgroundColor: "#00a2ff" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faClipboardList} /></span>Pedidos</button>
+                <button onClick={() => navigate("/taxas")} style={{ backgroundColor: "#43B889" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faPercent} /></span>Taxas</button>
+            </section>
         </main>
     )
 }

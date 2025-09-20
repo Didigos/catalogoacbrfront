@@ -7,6 +7,7 @@ import Admin from "./pages/admin/Admin.jsx";
 import { ProdutosProvider } from "./context/produtosProvider.jsx";
 import { TaxasProvider } from "./context/taxasProvider.jsx";
 import { UserProvider } from "./context/UserProvider.jsx";
+import Produtos from "./pages/Produtos/Produtos.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/produtos" element={<Produtos />} />
         </Routes>
       </ProdutosProvider>
     </TaxasProvider>
