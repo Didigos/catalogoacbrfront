@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useContext} from "react"
 import ProdutosContext from "../../context/produtosContext"
-
+import { useNavigate } from "react-router";
 const Produtos = ()=>{
     const { produtos, loading } = useContext(ProdutosContext)
-
+    const navigate = useNavigate();
 
     return(
         <main className={styles.produtos__main}>
@@ -20,7 +20,7 @@ const Produtos = ()=>{
                 {!loading && produtos.length > 0 ? produtos.map((produto)=>(
                 <div key={produto.id} className={styles.produtos__item}>
                     <h1 className={styles.produtos__item__title}>{produto.nome}</h1>
-                    <span className={styles.produtos__item__text}>Clique Aqui para Editar</span>
+                    <button onClick={() => navigate(`/produtos/${produto.id}`)} className={styles.produtos__item__text}>Clique Aqui para Editar</button>
                </div>
                 )) : <section className={styles.no__item}>
                 <h2 className={styles.no__item__title}>Nenhum produto encontrado</h2>
