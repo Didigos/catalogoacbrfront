@@ -1,4 +1,57 @@
-.main__title {
-    font-size: 1.4rem;
-    color: red;
+.main {
+    width: 100%;
+    height: 100vh;
+    background-color: #ffff;
+}
+
+.edit__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    position: relative;
+    margin-top: 10%;
+
+
+    & input {
+        width: 80%;
+        height: 5vh;
+        border-radius: 10px;
+        border: none;
+        font-size: 1.2rem;
+        text-align: center;
+        outline: none;
+        border: 1px solid rgb(0, 187, 255);
+        appearance: none;
+        margin-top: 10px;
+    }
+}
+
+.edit__name__label {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 2px;
+    left: 61px;
+    padding: 3px;
+    background-color: #fff;
+}
+
+.edit__marca__label {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 29%;
+    left: 61px;
+    padding: 3px;
+    background-color: #fff;
+}
+
+.edit__preco__label {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 58%;
+    left: 61px;
+    padding: 3px;
+    background-color: #fff;
 }
