@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await axios.get("https://acbr-catalogo-production.up.railway.app/smartphones")
+      await axios.get("https://catalogoacbr-production.up.railway.app/smartphones")
       .then((response) => {
         console.log(typeof(response.data));
         setSelectedProduct(response.data);
