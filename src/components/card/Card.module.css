@@ -1,6 +1,7 @@
 .main {
     width: 98%;
-    min-height: auto;
+    min-height: 40vh;
+    height: 40dvh;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1.5px 4px rgba(0, 0, 0, 0.08);
