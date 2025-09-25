@@ -7,7 +7,7 @@ export function ProdutosProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/smartphones")
+    axios.get("https://catalogoacbr-production.up.railway.app/smartphones")
       .then((res) => {
         setProdutos(res.data)
       })
@@ -18,7 +18,7 @@ export function ProdutosProvider({ children }) {
      const fetchProdutos = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:3000/smartphones");
+      const response = await axios.get("https://catalogoacbr-production.up.railway.app/smartphones");
       setProdutos(response.data);
     } catch (error) {
       console.log(error)

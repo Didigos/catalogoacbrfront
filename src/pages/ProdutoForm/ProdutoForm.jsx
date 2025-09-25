@@ -16,7 +16,7 @@ const ProdutoForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.put(`http://localhost:3000/smartphones/${id}`, {
+      await axios.put(`https://catalogoacbr-production.up.railway.app/smartphones/${id}`, {
         nome: data.nome,
         marca: data.marca,
         precobase: data.preco,
@@ -56,7 +56,7 @@ const ProdutoForm = () => {
   useEffect(() => {
     const getProduto = async () => {
       const response = await axios.get(
-        `http://localhost:3000/smartphones/${id}`
+        `https://catalogoacbr-production.up.railway.app/smartphones/${id}`
       );
       // console.log("response", response.data);
       setGetProdutos(response.data);

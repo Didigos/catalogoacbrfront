@@ -7,7 +7,7 @@ export function TaxasProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/taxas")
+    axios.get("https://catalogoacbr-production.up.railway.app/taxas")
       .then((res) => {
         setTaxas(res.data)
       })
