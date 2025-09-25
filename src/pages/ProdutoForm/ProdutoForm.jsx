@@ -11,18 +11,54 @@ const ProdutoForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("dados do formuladior:", data);
+  const onSubmit = async (data) => {
+    try {
+      await axios.put(`http://localhost:3000/smartphones/${id}`, {
+        nome: data.nome,
+        marca: data.marca,
+        precobase: data.preco,
+        detalhes: {
+          armazenamento: data.Armazenamento,
+          bateria: data.bateria,
+          camera: data.camera,
+          memoria: data.memoria,
+          processador: data.processador,
+        },
+        imagens: [data.imagens],
+      });
+      alert("Produto atualizado com sucesso!");
+      window.history.back();
+    } catch (error) {
+      console.error("Erro ao atualizar produto:", error);
+      alert("Erro ao atualizar produto.");
+    }
   };
+
+  useEffect(() => {
+    if (getProdutos && getProdutos.nome) {
+      reset({
+        nome: getProdutos.nome,
+        marca: getProdutos.marca,
+        preco: getProdutos.precobase,
+        Armazenamento: getProdutos.detalhes.armazenamento,
+        bateria: getProdutos.detalhes.bateria,
+        camera: getProdutos.detalhes.camera,
+        memoria: getProdutos.detalhes.memoria,
+        processador: getProdutos.detalhes.processador,
+        imagens: getProdutos.imagens[0],
+      });
+    }
+  }, [getProdutos, reset]);
 
   useEffect(() => {
     const getProduto = async () => {
       const response = await axios.get(
         `http://localhost:3000/smartphones/${id}`
       );
-      console.log("response: ", response.data);
+      // console.log("response", response.data);
       setGetProdutos(response.data);
     };
     getProduto();
@@ -161,7 +197,7 @@ const ProdutoForm = () => {
         </div>
         <div className={styles.edit__buttons}>
           <button type="submit">Salvar</button>
-          <button type="submit">Excluir</button>
+          <button type="button">Excluir</button>
         </div>
       </form>
     </main>

@@ -15,8 +15,24 @@ export function ProdutosProvider({ children }) {
       .finally(() => setLoading(false));
   }, []);
 
+     const fetchProdutos = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("http://localhost:3000/smartphones");
+      setProdutos(response.data);
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProdutos();
+  }, []);
+
   return (
-    <ProdutosContext.Provider value={{ produtos, setProdutos, loading }}>
+    <ProdutosContext.Provider value={{ produtos, setProdutos, loading, fetchProdutos }}>
       {children}
     </ProdutosContext.Provider>
   );

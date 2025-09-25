@@ -15,6 +15,7 @@ const Admin = () =>{
     return (
         <main className={styles.admin__main}>
             <header className={styles.admin__header}>
+                <button onClick={() => navigate("/")} className={styles.admin__header__home__button}>Home</button>
                 <section className={styles.admin__header__container}>
                 <div className={styles.admin__header__icon}>
                     <FontAwesomeIcon color="#ffffff" icon={faGear} size="2x"/>

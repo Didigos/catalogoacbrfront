@@ -1,12 +1,16 @@
 import styles from "./Produtos.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ProdutosContext from "../../context/produtosContext";
 import { useNavigate } from "react-router";
 const Produtos = () => {
-  const { produtos, loading } = useContext(ProdutosContext);
+  const { produtos, loading, fetchProdutos } = useContext(ProdutosContext);
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    fetchProdutos();
+  }, []);
 
   return (
     <main className={styles.produtos__main}>
