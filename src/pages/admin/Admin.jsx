@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styles from "./Admin.module.css"
-import { faGear, faCircleExclamation, faUser, faBox, faClipboardList, faPercent } from "@fortawesome/free-solid-svg-icons"
+import { faGear, faCircleExclamation, faUser, faBox, faClipboardList, faPercent, faHouse } from "@fortawesome/free-solid-svg-icons"
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import { useNavigate } from "react-router";
@@ -15,7 +15,10 @@ const Admin = () =>{
     return (
         <main className={styles.admin__main}>
             <header className={styles.admin__header}>
-                <button onClick={() => navigate("/")} className={styles.admin__header__home__button}>Home</button>
+        <div className={styles.admin__back}>
+            <FontAwesomeIcon icon={faHouse} style={{color: "#ffffff",}} onClick={() => navigate("/")} size="2x" />
+            <span>Home</span>
+        </div>
                 <section className={styles.admin__header__container}>
                 <div className={styles.admin__header__icon}>
                     <FontAwesomeIcon color="#ffffff" icon={faGear} size="2x"/>

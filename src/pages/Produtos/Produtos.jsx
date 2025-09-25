@@ -1,6 +1,6 @@
 import styles from "./Produtos.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faCircleExclamation, faRotateLeft, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect } from "react";
 import ProdutosContext from "../../context/produtosContext";
 import { useNavigate } from "react-router";
@@ -15,8 +15,15 @@ const Produtos = () => {
   return (
     <main className={styles.produtos__main}>
       <header className={styles.produtos__header}>
-        <button onClick={() => window.history.back()} className={styles.produtos__header__back__button}>Voltar</button>
-        <button onClick={() => navigate("/")} className={styles.produtos__header__home__button}>Home</button>
+        <div className={styles.produtos__header__back__button}>
+            <FontAwesomeIcon icon={faRotateLeft} style={{color: "#ffffff",}} onClick={() => window.history.back()} size="2x" />
+            <span>Voltar</span>
+        </div>
+        <div className={styles.produtos__header__home__button}>
+            <FontAwesomeIcon icon={faHouse} style={{color: "#ffffff",}} onClick={() => navigate("/")} size="2x" />
+            <span>Home</span>
+        </div>
+        
         <div className={styles.produtos__header__icon}>
           <FontAwesomeIcon icon={faPenToSquare} color="#ffffff" size="3x" />
         </div>

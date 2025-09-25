@@ -33,12 +33,14 @@ function App() {
             <div className={`${styles.header__nav__item}`}>
               <HamburgerMenu />
             </div>
+
             <div className={`${styles.header__title__item}`}>
-              <h1 className={styles.header__titulo}>CATALOGO</h1>
+              <h1 className={styles.header__titulo}> 
+                CATALOGO
+              </h1>
+              <span>ACBR Celulares</span>
             </div>
-            <div className={`${styles.header__logo__item}`}>
-              <img src={logo} alt="Logo ACBR" className={styles.header__logo} />
-            </div>
+
           </div>
           <div className={styles.searchbar}>
             <div className={styles.searchbar__container}>

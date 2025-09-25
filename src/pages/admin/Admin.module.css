@@ -98,3 +98,13 @@
     font-size: 1.2rem;
     border: none;
 }
+
+.admin__back {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    color: #fff;
+}
