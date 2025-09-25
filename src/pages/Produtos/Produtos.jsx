@@ -11,6 +11,8 @@ const Produtos = () => {
   return (
     <main className={styles.produtos__main}>
       <header className={styles.produtos__header}>
+        <button onClick={() => window.history.back()} className={styles.produtos__header__back__button}>Voltar</button>
+        <button onClick={() => navigate("/")} className={styles.produtos__header__home__button}>Home</button>
         <div className={styles.produtos__header__icon}>
           <FontAwesomeIcon icon={faPenToSquare} color="#ffffff" size="3x" />
         </div>

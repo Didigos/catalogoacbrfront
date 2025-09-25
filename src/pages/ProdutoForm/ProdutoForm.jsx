@@ -1,65 +1,171 @@
 import { useEffect, useState } from "react";
-import styles from "./ProdutoForm.module.css"
-import { useParams } from "react-router"
+import styles from "./ProdutoForm.module.css";
+import { useParams } from "react-router";
 import { get, useForm } from "react-hook-form";
 import axios from "axios";
 
+const ProdutoForm = () => {
+  const { id } = useParams();
+  const [getProdutos, setGetProdutos] = useState([]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
+  const onSubmit = (data) => {
+    console.log("dados do formuladior:", data);
+  };
 
-const ProdutoForm = ()=>{
+  useEffect(() => {
+    const getProduto = async () => {
+      const response = await axios.get(
+        `http://localhost:3000/smartphones/${id}`
+      );
+      console.log("response: ", response.data);
+      setGetProdutos(response.data);
+    };
+    getProduto();
+  }, [id]);
 
-    const { id } = useParams();
-    const [getProdutos, setGetProdutos] = useState([]);
-    const { register, handleSubmit, formState: { errors }, } = useForm({
-        defaultValues: {
-            nome: getProdutos.nome || "default",
-            marca: getProdutos.marca || "default",
-            preco: getProdutos.precobase || "default",
+  if (getProdutos.length === 0) return <p>Carregando...</p>;
 
-        }
-    });
+  return (
+    <main className={styles.main}>
+      <header className={styles.edit__header}>
+        <h1 className={styles.edit__title}>Editar Produto</h1>
+        <button
+          onClick={() => window.history.back()}
+          className={styles.edit__button}
+        >
+          Voltar
+        </button>
+      </header>
+      <form className={styles.edit__form} onSubmit={handleSubmit(onSubmit)}>
+        <h2 className={styles.edit__title}>Informações Gerais</h2>
 
-    const onSubmit = (data)=>{
-        console.log('dados do formuladior:', data )
-    }
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="nome">
+            Nome
+          </label>
+          <input
+            name="nome"
+            type="text"
+            placeholder={getProdutos.nome || "none"}
+            {...register("nome", { required: true })}
+          />
+        </div>
 
-    useEffect(() => {
-       const getProduto = async () => {
-        const response = await axios.get(`http://localhost:3000/smartphones/${id}`);
-        setGetProdutos(response.data);
-       }
-       getProduto();
-    }, [id]);
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="marca">
+            Marca
+          </label>
+          <input
+            name="marca"
+            type="text"
+            placeholder={getProdutos.marca || "none"}
+            {...register("marca", { required: true })}
+          />
+        </div>
 
-    return (
-        <main className={styles.main}>
-            <h2>Editar produto</h2>
-            <form className={styles.edit__form} onSubmit={handleSubmit(onSubmit)}>
-                <label className={styles.edit__name__label} htmlFor="nome">Nome</label>
-                <input
-                    name="nome"
-                    type="text"
-                    placeholder={getProdutos.nome || "none"}
-                    {...register("nome", { required: true })}
-                />
-                <label className={styles.edit__marca__label} htmlFor="marca">Marca</label>
-                <input
-                    name="marca"
-                    type="text"
-                    placeholder={getProdutos.marca || "none"}
-                    {...register("marca", { required: true })}
-                />
-                <label className={styles.edit__preco__label} htmlFor="preco">Preço</label>
-                <input
-                    name="preco"
-                    type="text"
-                    placeholder={getProdutos.precobase || "none"}
-                    {...register("preco", { required: true })}
-                />
-                <button type="submit">Salvar</button>
-            </form>
-        </main>
-    )
-}
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="preco">
+            Preço
+          </label>
+          <input
+            name="preco"
+            type="text"
+            placeholder={getProdutos.precobase || "none"}
+            {...register("preco", { required: true })}
+          />
+        </div>
 
-export default ProdutoForm
+        <hr className={styles.edit__divider} />
+
+        <h2 className={styles.edit__title}>Especificações Técnicas</h2>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="Armazenamento">
+            Armazenamento
+          </label>
+          <input
+            name="Armazenamento"
+            type="text"
+            placeholder={getProdutos.detalhes.armazenamento || "none"}
+            {...register("Armazenamento", { required: true })}
+          />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="bateria">
+            Bateria
+          </label>
+          <input
+            name="bateria"
+            type="text"
+            placeholder={getProdutos.detalhes.bateria || "none"}
+            {...register("bateria", { required: true })}
+          />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="camera">
+            Câmera
+          </label>
+          <input
+            name="camera"
+            type="text"
+            placeholder={getProdutos.detalhes.camera || "none"}
+            {...register("camera", { required: true })}
+          />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="memoria">
+            Memória
+          </label>
+          <input
+            name="memoria"
+            type="text"
+            placeholder={getProdutos.detalhes.memoria || "none"}
+            {...register("memoria", { required: true })}
+          />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="processador">
+            Processador
+          </label>
+          <input
+            name="processador"
+            type="text"
+            placeholder={getProdutos.detalhes.processador || "none"}
+            {...register("processador", { required: true })}
+          />
+        </div>
+
+        <hr className={styles.edit__divider} />
+
+        <h2 className={styles.edit__title}>Informações do Catalogo</h2>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="imagens">
+            Link da Imagem
+          </label>
+          <input
+            name="imagens"
+            type="text"
+            placeholder={getProdutos.imagens[0] || "none"}
+            {...register("imagens", { required: true })}
+          />
+        </div>
+        <div className={styles.edit__buttons}>
+          <button type="submit">Salvar</button>
+          <button type="submit">Excluir</button>
+        </div>
+      </form>
+    </main>
+  );
+};
+
+export default ProdutoForm;

@@ -21,6 +21,27 @@
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    position: relative;
+}
+
+.produtos__header__back__button {
+    top: 5px;
+    left: 10px;
+    position: absolute;
+    border-radius: 20px;
+    border: none;
+    padding: 5px;
+}
+
+.produtos__header__home__button {
+    top: 5px;
+    right: 10px;
+    position: absolute;
+    border-radius: 20px;
+    border: none;
+    padding: 5px;
+
+
 }
 
 .produtos__header__title {
