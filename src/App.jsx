@@ -5,6 +5,7 @@ import Card from "./components/card/Card";
 import { useContext, useEffect, useState } from "react";
 import ProdutosContext from "./context/produtosContext";
 import axios from "axios";
+import whatsLogo from "./assets/whatsApp.png";
 
 function App() {
   const produtos = useContext(ProdutosContext);
@@ -64,6 +65,9 @@ function App() {
         {selectedProduct.map(produtos => (
           <Card key={produtos.id} produtos={produtos} />
         ))}
+        <div className={styles.whatslogo} onClick={() => window.open('https://wa.me/5528992523443', '_blank')}>
+          <img src={whatsLogo} alt="WhatsApp Logo" />
+        </div>
       </main>
     </>
   );

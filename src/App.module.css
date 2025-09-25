@@ -80,3 +80,14 @@
 
     border: 1px solid red;
 }
+
+.whatslogo {
+    width: 100px;
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+}
+
+.whatslogo img {
+    width: 100%;
+}

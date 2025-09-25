@@ -24,9 +24,7 @@ const HamburgerMenu = () => {
       {/* Menu lateral */}
       <nav className={`${styles.menu} ${isOpen ? styles.show : ""}`}>
         <ul>
-          <li><a href="/">Início</a></li>
           <li><a href="/login">Login</a></li>
-          <li><a href="#contact">Contato</a></li>
         </ul>
       </nav>
     </div>
