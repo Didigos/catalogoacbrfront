@@ -4,15 +4,14 @@ import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
+
+
+
+
 const ProdutoForm = () => {
   const { id } = useParams();
   const [getProdutos, setGetProdutos] = useState([]);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset,} = useForm();
 
   const onSubmit = async (data) => {
     try {

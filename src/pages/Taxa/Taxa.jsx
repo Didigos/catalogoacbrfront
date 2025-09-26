@@ -1,15 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoneyBillTrendUp } from '@fortawesome/free-solid-svg-icons';
+import { faMoneyBillTrendUp,  faRotateLeft, faHouse } from '@fortawesome/free-solid-svg-icons';
 import styles from './Taxa.module.css';
 import { useForm } from 'react-hook-form';
-
+import { useNavigate } from 'react-router';
 
 const Taxa = () =>{ 
+    const navigate = useNavigate();
     const {register, handleSubmit, watch, formState: { errors }, getValues} = useForm();
     const debitoSimulacaoValue = watch("debitoSimulacao");
     const debitoTax = watch("debito");
     const onSubmit = (data)=>{
-        console.log('formulario enviado: ',data);
+           console.log('formulario enviado: ',data);
     }
 
     const debitotaxa = (valor, debitTax) => {
@@ -21,6 +22,8 @@ const Taxa = () =>{
     return(
         <main className={styles.main}>
             <header className={styles.header}>
+                <FontAwesomeIcon className={styles.header__backIcon} icon={faRotateLeft} style={{color: "#ffffff",}} onClick={() => window.history.back()} size='2x' />
+                <FontAwesomeIcon className={styles.header__backHouse} icon={faHouse} style={{color: "#ffffff",}} onClick={() => navigate('/')} size='2x' />
                 <FontAwesomeIcon icon={faMoneyBillTrendUp} style={{color: "#ffffff",}} size='2x' />
                 <h1>Painel de taxas</h1>
             </header>
