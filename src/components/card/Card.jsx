@@ -11,7 +11,7 @@ import SelectPayment from "../SelectPayment/SelectPayment";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import TaxasContext from "../../context/taxasContext";
-
+import { ClipLoader } from "react-spinners";
 
 const Card = ({produtos}) => {
   const { taxas, loading } = useContext(TaxasContext); 
@@ -30,7 +30,7 @@ useEffect(() => {
 }, [produtos, taxas]);
 
  if (loading || !taxas || !taxas[0] || !taxas[0].credito) {
-    return <p>Carregando...</p>;
+    return <ClipLoader color="#36d7b1" size={50} />;
   }
 
 

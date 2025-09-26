@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "./ProdutoForm.module.css";
 import { useParams } from "react-router";
-import { get, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import { ClipLoader } from "react-spinners";
 const ProdutoForm = () => {
   const { id } = useParams();
   const [getProdutos, setGetProdutos] = useState([]);
@@ -64,7 +64,12 @@ const ProdutoForm = () => {
     getProduto();
   }, [id]);
 
-  if (getProdutos.length === 0) return <p>Carregando...</p>;
+  if (getProdutos.length === 0) return (
+    <div className={styles.loaderContainer}>
+     <ClipLoader  color="#36d7b1" size={50} />
+    </div>
+
+  );
 
   return (
     <main className={styles.main}>

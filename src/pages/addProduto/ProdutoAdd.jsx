@@ -1,9 +1,12 @@
 import styles from "./ProdutoAdd.module.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import {useNavigate } from "react-router";
 
 const ProdutoAdd = () => {
   const {register, handleSubmit,formState: { errors }} = useForm();
+  const navigate = useNavigate();
+
 
   const onSubmit = async (data) => {
     try {
@@ -24,6 +27,8 @@ const ProdutoAdd = () => {
     } catch (error) {
       console.error("Erro ao adicionar produto:", error);
     }
+    alert("Produto adicionado com sucesso!");
+    navigate("/produtos");
   };
 
 

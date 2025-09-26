@@ -5,6 +5,8 @@ import { useContext, useEffect } from "react";
 import ProdutosContext from "../../context/produtosContext";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { ClipLoader } from "react-spinners";
+
 const Produtos = () => {
   const { produtos, loading, fetchProdutos } = useContext(ProdutosContext);
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ const Produtos = () => {
         </div>
         
         <div className={styles.produtos__header__icon}>
-          <FontAwesomeIcon icon={faPenToSquare} color="#ffffff" size="3x" />
+          <FontAwesomeIcon icon={faPenToSquare} color="#ffffff" size="2x" />
         </div>
         <h1 className={styles.produtos__header__title}>Edição de Produtos</h1>
       </header>
@@ -65,12 +67,7 @@ const Produtos = () => {
           ))
         ) : (
           <section className={styles.no__item}>
-            <h2 className={styles.no__item__title}>
-              Nenhum produto encontrado
-            </h2>
-            <span className={styles.no__item__text}>
-              Adicione produtos para que eles apareçam aqui
-            </span>
+            <ClipLoader color="#36d7b1" size={50} />
           </section>
         )}
         <div className={styles.produtos__addItem}>

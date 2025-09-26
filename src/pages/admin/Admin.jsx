@@ -4,13 +4,13 @@ import { faGear, faCircleExclamation, faUser, faBox, faClipboardList, faPercent,
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import { useNavigate } from "react-router";
-
+import { ClipLoader } from "react-spinners";
 const Admin = () =>{
     const {user, loading} = useContext(UserContext);
     const navigate = useNavigate();
 
     if(loading){
-        return <div>Carregando...</div>
+        return <ClipLoader color="#36d7b1" size={50} />;
     }
     return (
         <main className={styles.admin__main}>
