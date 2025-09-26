@@ -1,6 +1,5 @@
 import styles from "./App.module.css";
 import HamburgerMenu from "./components/menu/hamburguerMenu";
-import logo from "./assets/logo.svg";
 import Card from "./components/card/Card";
 import { useContext, useEffect, useState } from "react";
 import ProdutosContext from "./context/produtosContext";

@@ -9,6 +9,7 @@ import { TaxasProvider } from "./context/taxasProvider.jsx";
 import { UserProvider } from "./context/UserProvider.jsx";
 import Produtos from "./pages/Produtos/Produtos.jsx";
 import ProdutoForm from "./pages/ProdutoForm/ProdutoForm.jsx";
+import ProdutoAdd from "./pages/addProduto/ProdutoAdd.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -21,6 +22,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/admin" element={<Admin />} />
           <Route path="/produtos" element={<Produtos />} />
           <Route path="/produtos/:id" element={<ProdutoForm />} />
+          <Route path="/produtos/add" element={<ProdutoAdd />} />
         </Routes>
       </ProdutosProvider>
     </TaxasProvider>

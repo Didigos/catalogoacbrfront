@@ -1,12 +1,26 @@
 import styles from "./Produtos.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faCircleExclamation, faRotateLeft, faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faCircleExclamation, faRotateLeft, faHouse, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect } from "react";
 import ProdutosContext from "../../context/produtosContext";
 import { useNavigate } from "react-router";
+import axios from "axios";
 const Produtos = () => {
   const { produtos, loading, fetchProdutos } = useContext(ProdutosContext);
   const navigate = useNavigate();
+
+  const DeleteItem = (id) => {
+    try {
+      axios.delete(`https://catalogoacbr-production.up.railway.app/smartphones/${id}`)
+      .then((response) => {
+        if(response.status === 200){
+          fetchProdutos();
+        }
+      });
+    } catch (error) {
+      console.error("Erro ao deletar produto:", error);
+    }
+  }
 
   useEffect(()=>{
     fetchProdutos();
@@ -40,6 +54,7 @@ const Produtos = () => {
           produtos.map((produto) => (
             <div key={produto.id} className={styles.produtos__item}>
               <h1 className={styles.produtos__item__title}>{produto.nome}</h1>
+              <FontAwesomeIcon icon={faTrash} style={{color: "#f1044b",}} size="2x" onClick={() => DeleteItem(produto.id)} />
               <button
                 onClick={() => navigate(`/produtos/${produto.id}`)}
                 className={styles.produtos__item__text}
@@ -58,6 +73,9 @@ const Produtos = () => {
             </span>
           </section>
         )}
+        <div className={styles.produtos__addItem}>
+          <button onClick={() => navigate("/produtos/add")}>+</button>
+        </div>
       </section>
     </main>
   );
