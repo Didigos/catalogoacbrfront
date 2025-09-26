@@ -45,7 +45,7 @@ const Admin = () =>{
                 <button onClick={() => navigate("/usuarios")} style={{ backgroundColor: "#A6A2A2" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faUser} /></span>Usuários</button>
                 <button onClick={() => navigate("/produtos")} style={{ backgroundColor: "#FFB042" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faBox} /></span>Produtos</button>
                 <button onClick={() => navigate("/pedidos")} style={{ backgroundColor: "#00a2ff" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faClipboardList} /></span>Pedidos</button>
-                <button onClick={() => navigate("/taxas")} style={{ backgroundColor: "#43B889" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faPercent} /></span>Taxas</button>
+                <button onClick={() => navigate("/admin/produtos/tax")} style={{ backgroundColor: "#43B889" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faPercent} /></span>Taxas</button>
             </section>
         </main>
     )
