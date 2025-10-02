@@ -1,4 +1,5 @@
 import styles from "./Card.module.css";
+import defafultImage from "../../assets/img_default.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMicrochip,
@@ -16,6 +17,13 @@ import { ClipLoader } from "react-spinners";
 const Card = ({produtos}) => {
   const { taxas, loading } = useContext(TaxasContext); 
   const [comTaxa, setComTaxa] = useState(0);
+  // Estado para controlar a imagem exibida (fallback se quebrar)
+  const [imageSrc, setImageSrc] = useState(() => (produtos?.imagens?.[0] || defafultImage));
+
+  // Atualiza quando o produto muda
+  useEffect(() => {
+    setImageSrc(produtos?.imagens?.[0] || defafultImage);
+  }, [produtos]);
 
   const calcularPrecoComTaxa = (precoBase, taxa) => {
     const precoComTaxa =  (precoBase + (precoBase * taxa / 100));
@@ -38,7 +46,16 @@ useEffect(() => {
     <main className={styles.main}>
       <section className={styles.product__section__info}>
         <div className={styles.product__image}>
-          <img src="https://static.toiimg.com/thumb/resizemode-4,msid-117091955,imgsize-500,width-800/117091955.jpg" />
+          <img 
+            src={imageSrc} 
+            alt={produtos.nome}
+            loading="lazy"
+            onError={(e) => {
+              // Evita loop caso a default também falhe
+              e.currentTarget.onerror = null;
+              setImageSrc(defafultImage);
+            }}
+          />
         </div>
         <div className={styles.product__datas}>
           <div className={styles.product__title}>

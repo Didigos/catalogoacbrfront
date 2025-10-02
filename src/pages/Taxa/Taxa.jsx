@@ -3,25 +3,52 @@ import { faMoneyBillTrendUp,  faRotateLeft, faHouse } from '@fortawesome/free-so
 import styles from './Taxa.module.css';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { useContext, useEffect, useState } from 'react';
+import taxasContext from '../../context/taxasContext';
 
 const Taxa = () =>{ 
-    const navigate = useNavigate();
-    const {register, handleSubmit, watch, formState: { errors }, getValues} = useForm();
+    const navigate = useNavigate();  
+    const {taxas, loading} = useContext(taxasContext);
+    // Estado local para armazenar valores das taxas após carregamento do contexto
+    const [taxValues, setTaxValues] = useState({
+        debito: '',
+        credito1x: '',
+        credito2x: '',
+        credito3x: '',
+        credito4x: '',
+        credito5x: '',
+        credito6x: '',
+        credito7x: '',
+        credito8x: '',
+        credito9x: '',
+        credito10x: '',
+        credito11x: '',
+        credito12x: '',
+        debitoSimulacao: '',
+        simulacaoCredito: ''
+    });
+
+    const {register, handleSubmit, watch, formState: { errors }, reset} = useForm({
+        defaultValues: taxValues
+    });
+
     const debitoSimulacaoValue = watch("debitoSimulacao");
     const creditoSimulacaoValor = watch("simulacaoCredito");
-    const debitoTax = watch("debito");
-    const credito1x = watch("credito1x");
-    const credito2x = watch("credito2x");
-    const credito3x = watch("credito3x");
-    const credito4x = watch("credito4x");
-    const credito5x = watch("credito5x");
-    const credito6x = watch("credito6x");
-    const credito7x = watch("credito7x");
-    const credito8x = watch("credito8x");
-    const credito9x = watch("credito9x");
-    const credito10x = watch("credito10x");
-    const credito11x = watch("credito11x");
-    const credito12x = watch("credito12x");
+
+        const debitoTax = watch("debito");
+        const credito1x = watch("credito1x");
+        const credito2x = watch("credito2x");
+        const credito3x = watch("credito3x");
+        const credito4x = watch("credito4x");
+        const credito5x = watch("credito5x");
+        const credito6x = watch("credito6x");
+        const credito7x = watch("credito7x");
+        const credito8x = watch("credito8x");
+        const credito9x = watch("credito9x");
+        const credito10x = watch("credito10x");
+        const credito11x = watch("credito11x");
+        const credito12x = watch("credito12x");
+
     const onSubmit = (data)=>{
            console.log('formulario enviado: ',data);
     }
@@ -29,6 +56,48 @@ const Taxa = () =>{
     const debitotaxa = (valor, debitTax) => {
         const taxa = valor + (valor * debitTax / 100);
         return taxa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+
+    // Quando taxas carregar (e não estiver em loading), atualiza estado e form
+    useEffect(()=>{
+        console.log('taxas no useEffect', taxas);
+        if(!loading && taxas && taxas.length > 0){
+            const t = taxas[0];
+            const newValues = {
+                debito: t.debito || '',
+                credito1x: t.credito?.['1x'] || '',
+                credito2x: t.credito?.['2x'] || '',
+                credito3x: t.credito?.['3x'] || '',
+                credito4x: t.credito?.['4x'] || '',
+                credito5x: t.credito?.['5x'] || '',
+                credito6x: t.credito?.['6x'] || '',
+                credito7x: t.credito?.['7x'] || '',
+                credito8x: t.credito?.['8x'] || '',
+                credito9x: t.credito?.['9x'] || '',
+                credito10x: t.credito?.['10x'] || '',
+                credito11x: t.credito?.['11x'] || '',
+                credito12x: t.credito?.['12x'] || '',
+                debitoSimulacao: '',
+                simulacaoCredito: ''
+            };
+            setTaxValues(newValues); // Mantém em estado se precisar reutilizar
+            reset(newValues); // Atualiza valores do formulário
+        }
+    },[loading, taxas, reset]);
+
+    if(loading){
+        return (
+            <main className={styles.main}>
+                <header className={styles.header}>
+                    <FontAwesomeIcon className={styles.header__backIcon} icon={faRotateLeft} style={{color: "#ffffff",}} onClick={() => window.history.back()} size='2x' />
+                    <FontAwesomeIcon className={styles.header__backHouse} icon={faHouse} style={{color: "#ffffff",}} onClick={() => navigate('/')} size='2x' />
+                    <FontAwesomeIcon icon={faMoneyBillTrendUp} style={{color: "#ffffff",}} size='2x' />
+                    <h1>Painel de taxas</h1>
+                </header>
+                <p style={{color:'#fff', padding:'1rem'}}>Carregando taxas...</p>
+            </main>
+        );
     }
     
     return(
