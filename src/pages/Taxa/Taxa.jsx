@@ -37,21 +37,56 @@ const Taxa = () =>{
 
         const debitoTax = watch("debito");
         const credito1x = watch("credito1x");
-        const credito2x = watch("credito2x");
-        const credito3x = watch("credito3x");
-        const credito4x = watch("credito4x");
-        const credito5x = watch("credito5x");
-        const credito6x = watch("credito6x");
-        const credito7x = watch("credito7x");
-        const credito8x = watch("credito8x");
-        const credito9x = watch("credito9x");
-        const credito10x = watch("credito10x");
-        const credito11x = watch("credito11x");
-        const credito12x = watch("credito12x");
+        const TAXA_INTERMEDIACAO = 2.01;              // <-- ADICIONADO
+        const TAXA_PARCELA_ADICIONAL = 2.66;         // <-- ADICIONADO
+
 
     const onSubmit = (data)=>{
            console.log('formulario enviado: ',data);
     }
+
+const calcCreditoInfo = (valorBase, n) => {
+    const v = parseFloat(valorBase);
+    if (!v || !n) return null;
+
+    const r = TAXA_PARCELA_ADICIONAL / 100;
+    const interPercent = n === 1 ? parseFloat(credito1x || 0) : TAXA_INTERMEDIACAO;
+    const inter = interPercent / 100;
+
+    const round2 = num => Math.round((num + Number.EPSILON) * 100) / 100;
+
+    if (n === 1) {
+        // v = G * (1 - inter)  =>  G = v / (1 - inter)
+        const G = v / (1 - inter);
+        const parcela = round2(G); // 1x a parcela é o total
+        return {
+            parcela,
+            total: parcela,
+            parcelaFmt: parcela.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}),
+            totalFmt: parcela.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})
+        };
+    }
+
+    // Soma dos fatores de desconto (geometria)
+    const S = Array.from({ length: n }, (_, k) => 1 / Math.pow(1 + r, k + 1))
+        .reduce((a,b)=>a+b,0);
+    const A = S / n;
+
+    // v = G * (1 - inter) * A  =>  G = v / ((1 - inter) * A)
+    const G = v / ((1 - inter) * A);
+
+    // Parcela exibida: arredonda e depois recalcula total como parcela * n (imitando o app)
+    const parcelaRaw = G / n;
+    const parcela = round2(parcelaRaw);
+    const total = round2(parcela * n);
+
+    return {
+        parcela,
+        total,
+        parcelaFmt: parcela.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}),
+        totalFmt: total.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})
+    };
+};
 
     const debitotaxa = (valor, debitTax) => {
         const taxa = valor + (valor * debitTax / 100);
@@ -61,7 +96,6 @@ const Taxa = () =>{
 
     // Quando taxas carregar (e não estiver em loading), atualiza estado e form
     useEffect(()=>{
-        console.log('taxas no useEffect', taxas);
         if(!loading && taxas && taxas.length > 0){
             const t = taxas[0];
             const newValues = {
@@ -79,7 +113,7 @@ const Taxa = () =>{
                 credito11x: t.credito?.['11x'] || '',
                 credito12x: t.credito?.['12x'] || '',
                 debitoSimulacao: '',
-                simulacaoCredito: ''
+                simulacaoCredito: '',
             };
             setTaxValues(newValues); // Mantém em estado se precisar reutilizar
             reset(newValues); // Atualiza valores do formulário
@@ -159,9 +193,17 @@ const Taxa = () =>{
                             id="credito1x" 
                             placeholder="Ex: 1.5"
                             {...register("credito1x", { required: true })} />
-                            {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito1x || 0) / 100)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                            {creditoSimulacaoValor && (() => {
+                            const info = calcCreditoInfo(creditoSimulacaoValor, 1);
+                            return info && (
+                                <span className={styles.credit__simulator__text}>
+                                {info.parcelaFmt}
+                                <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                </span>
+                            );
+                            })()}
+
                         </div>
                         <div className={styles.inputBox}>
                             <label className={styles.creditFormLabel} htmlFor="credito2x">2x</label>
@@ -170,9 +212,16 @@ const Taxa = () =>{
                             id="credito2x" 
                             placeholder="Ex: 2.5"
                             {...register("credito2x", { required: true })} />
-                            {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito2x || 0) / 100)/2).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                        {creditoSimulacaoValor && (() => {
+                            const info = calcCreditoInfo(creditoSimulacaoValor, 2);
+                            return info && (
+                                <span className={styles.credit__simulator__text}>
+                                {info.parcelaFmt}
+                                <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                </span>
+                            );
+                        })()}
 
                         </div>
                         <div className={styles.inputBox}>
@@ -182,9 +231,16 @@ const Taxa = () =>{
                             id="credito3x" 
                             placeholder="Ex: 3.5"
                             {...register("credito3x", { required: true })} />
-                                {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                    {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito3x || 0) / 100)/3).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                        {creditoSimulacaoValor && (() => {
+                            const info = calcCreditoInfo(creditoSimulacaoValor, 3);
+                            return info && (
+                                <span className={styles.credit__simulator__text}>
+                                {info.parcelaFmt}
+                                <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                </span>
+                            );
+                        })()}
 
                         </div>
                         <div className={styles.inputBox}>
@@ -194,9 +250,17 @@ const Taxa = () =>{
                             id="credito4x" 
                             placeholder="Ex: 4.5"
                             {...register("credito4x", { required: true })} />
-                                {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito4x || 0) / 100)/4).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                        {creditoSimulacaoValor && (() => {
+                            const info = calcCreditoInfo(creditoSimulacaoValor, 4);
+                            return info && (
+                                <span className={styles.credit__simulator__text}>
+                                {info.parcelaFmt}
+                                <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                </span>
+                            );
+                        })()}
+
 
                         </div>
                         <div className={styles.inputBox}>
@@ -206,9 +270,16 @@ const Taxa = () =>{
                             id="credito5x" 
                             placeholder="Ex: 5.5"
                             {...register("credito5x", { required: true })} />
-                                {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito5x || 0) / 100)/5).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                        {creditoSimulacaoValor && (() => {
+                            const info = calcCreditoInfo(creditoSimulacaoValor, 5);
+                            return info && (
+                                <span className={styles.credit__simulator__text}>
+                                {info.parcelaFmt}
+                                <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                </span>
+                            );
+                        })()}
 
                         </div>
                         <div className={styles.inputBox}>
@@ -218,9 +289,16 @@ const Taxa = () =>{
                             id="credito6x" 
                             placeholder="Ex: 6.5"
                             {...register("credito6x", { required: true })} />
-                            {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                            {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito6x || 0) / 100)/6).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                        {creditoSimulacaoValor && (() => {
+                            const info = calcCreditoInfo(creditoSimulacaoValor, 6);
+                            return info && (
+                                <span className={styles.credit__simulator__text}>
+                                {info.parcelaFmt}
+                                <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                </span>
+                            );
+                        })()}
 
                         </div>
                         <div className={styles.inputBox}>
@@ -230,9 +308,16 @@ const Taxa = () =>{
                             id="credito7x" 
                             placeholder="Ex: 7.5"
                             {...register("credito7x", { required: true })} />
-                                {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito7x || 0) / 100)/7).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                        {creditoSimulacaoValor && (() => {
+                            const info = calcCreditoInfo(creditoSimulacaoValor, 7);
+                            return info && (
+                                <span className={styles.credit__simulator__text}>
+                                {info.parcelaFmt}
+                                <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                </span>
+                            );
+                        })()}
 
                         </div>
                         <div className={styles.inputBox}>
@@ -242,9 +327,16 @@ const Taxa = () =>{
                             id="credito8x" 
                             placeholder="Ex: 8.5"
                             {...register("credito8x", { required: true })} />
-                                {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito8x || 0) / 100)/8).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                        {creditoSimulacaoValor && (() => {
+                            const info = calcCreditoInfo(creditoSimulacaoValor, 8);
+                            return info && (
+                                <span className={styles.credit__simulator__text}>
+                                {info.parcelaFmt}
+                                <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                </span>
+                            );
+                        })()}
 
                         </div>
                         <div className={styles.inputBox}>
@@ -254,9 +346,16 @@ const Taxa = () =>{
                             id="credito9x" 
                             placeholder="Ex: 9.5"
                             {...register("credito9x", { required: true })} />
-                                {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito9x || 0) / 100)/9).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                        {creditoSimulacaoValor && (() => {
+                            const info = calcCreditoInfo(creditoSimulacaoValor, 9);
+                            return info && (
+                                <span className={styles.credit__simulator__text}>
+                                {info.parcelaFmt}
+                                <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                </span>
+                            );
+                        })()}
 
                         </div>
                         <div className={styles.inputBox}>
@@ -266,9 +365,16 @@ const Taxa = () =>{
                             id="credito10x" 
                             placeholder="Ex: 10.5"
                             {...register("credito10x", { required: true })} />
-                                {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito10x || 0) / 100)/10).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                                {creditoSimulacaoValor && (() => {
+                                    const info = calcCreditoInfo(creditoSimulacaoValor, 10);
+                                    return info && (
+                                        <span className={styles.credit__simulator__text}>
+                                            {info.parcelaFmt}
+                                            <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                        </span>
+                                    );
+                                })()}
 
                         </div>
                         <div className={styles.inputBox}>
@@ -278,9 +384,16 @@ const Taxa = () =>{
                             id="credito11x" 
                             placeholder="Ex: 11.5"
                             {...register("credito11x", { required: true })} />
-                                {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito11x || 0) / 100)/11).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                                {creditoSimulacaoValor && (() => {
+                                    const info = calcCreditoInfo(creditoSimulacaoValor, 11);
+                                    return info && (
+                                        <span className={styles.credit__simulator__text}>
+                                            {info.parcelaFmt}
+                                            <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                        </span>
+                                    );
+                                })()}
 
                         </div>
                         <div className={styles.inputBox}>
@@ -290,9 +403,16 @@ const Taxa = () =>{
                             id="credito12x" 
                             placeholder="Ex: 12.5"
                             {...register("credito12x", { required: true })} />
-                                {creditoSimulacaoValor && <span className={styles.credit__simulator__text} >
-                                {(parseFloat(creditoSimulacaoValor || 0)* (1 + parseFloat(credito12x || 0) / 100)/12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                            </span>}
+
+                                {creditoSimulacaoValor && (() => {
+                                    const info = calcCreditoInfo(creditoSimulacaoValor, 12);
+                                    return info && (
+                                        <span className={styles.credit__simulator__text}>
+                                            {info.parcelaFmt}
+                                            <br /><small style={{color:'#c00'}}>{info.totalFmt}</small>
+                                        </span>
+                                    );
+                                })()}
 
                         </div>
                     </div>
