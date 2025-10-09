@@ -7,7 +7,7 @@ const tipoCartaoOptions = [
   { value: "credito", label: "Cartão de Crédito" },
 ];
 
-function SelectPayment({ precobase, productName, memory }) {
+function SelectPayment({ precobase, productName, memory, parcelas }) {
   const [tipo, setTipo] = useState(null);
   const [openModal, setOpenMOdal] = useState(false);
 
@@ -58,20 +58,27 @@ function SelectPayment({ precobase, productName, memory }) {
         }}
         placeholder="Escolher"
       />
-  {openModal && tipo?.value === "debito" && <Modal 
-  type="debito" 
-  onClose={() => setOpenMOdal(false)} 
-  preco={precobase}
-  productName={productName}
-  memory={memory}
-  />}
-  {openModal && tipo?.value === "credito" && <Modal 
-  type="credito" 
-  onClose={() => setOpenMOdal(false)} 
-  preco={precobase}
-  productName={productName}
-  memory={memory}
-/>}
+      {openModal && tipo?.value === "debito" && (
+        <Modal
+          type="debito"
+          onClose={() => setOpenMOdal(false)}
+          preco={precobase}
+          productName={productName}
+          memory={memory}
+          parcelas={parcelas}
+          
+        />
+      )}
+      {openModal && tipo?.value === "credito" && (
+        <Modal
+          type="credito"
+          onClose={() => setOpenMOdal(false)}
+          preco={precobase}
+          productName={productName}
+          memory={memory}
+          parcelas={parcelas}
+        />
+      )}
     </div>
   );
 }

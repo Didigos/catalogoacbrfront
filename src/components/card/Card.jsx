@@ -10,34 +10,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SelectPayment from "../SelectPayment/SelectPayment";
 import { useEffect, useState } from "react";
-import { useContext } from "react";
-import TaxasContext from "../../context/taxasContext";
 import { ClipLoader } from "react-spinners";
 
 const Card = ({produtos}) => {
-  const { taxas, loading } = useContext(TaxasContext); 
-  const [comTaxa, setComTaxa] = useState(0);
+
   // Estado para controlar a imagem exibida (fallback se quebrar)
   const [imageSrc, setImageSrc] = useState(() => (produtos?.imagens?.[0] || defafultImage));
 
   // Atualiza quando o produto muda
   useEffect(() => {
+
     setImageSrc(produtos?.imagens?.[0] || defafultImage);
   }, [produtos]);
 
-  const calcularPrecoComTaxa = (precoBase, taxa) => {
-    const precoComTaxa =  (precoBase + (precoBase * taxa / 100));
-    const valorParcela = precoComTaxa / 10;
-    setComTaxa(valorParcela);
-  }
 
-useEffect(() => {
-  if (taxas && taxas[0] && taxas[0].credito) {
-    calcularPrecoComTaxa(produtos.precobase, taxas[0].credito['10x'] || 0);
-  }
-}, [produtos, taxas]);
-
- if (loading || !taxas || !taxas[0] || !taxas[0].credito) {
+ if (!produtos) {
     return <ClipLoader color="#36d7b1" size={50} />;
   }
 
@@ -126,7 +113,7 @@ useEffect(() => {
             </div>
               <SelectPayment 
               precobase={produtos.precobase}
-              taxas={taxas}
+              parcelas={produtos.preco}
               productName={produtos.nome}
               memory={produtos.detalhes.memoria}
               />
@@ -138,11 +125,11 @@ useEffect(() => {
           className={styles.price__text}
           style={{ fontSize: ".9rem", fontWeight: "bold", color: "#666" }}
         >
-          {produtos.precobase.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} em até 10x de {comTaxa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} ou <br />
+          {(produtos.preco.credito.parcela10 * 10).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} em até 10x de {(produtos.preco.credito.parcela10).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} ou <br />
           <span
             style={{ fontSize: "1.4rem", color: "#46C262", fontWeight: "bold" }}
           >
-            {produtos.precopix.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+            {produtos.preco.avista.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
           </span>
           <span
             style={{ fontSize: ".7rem", color: "#46C262", fontWeight: "bold" }}

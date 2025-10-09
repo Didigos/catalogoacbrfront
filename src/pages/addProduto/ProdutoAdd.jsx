@@ -12,20 +12,35 @@ const ProdutoAdd = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    console.log('dados do formulario: ', data)
     try {
       await axios.post(
         "https://catalogoacbr-production.up.railway.app/smartphones",
         {
           nome: data.nome,
           marca: data.marca,
-          precobase: data.preco,
-          precopix: data.precopix,
           detalhes: {
-            Armazenamento: data.Armazenamento,
+            armazenamento: data.armazenamento,
             bateria: data.bateria,
             camera: data.camera,
             memoria: data.memoria,
             processador: data.processador,
+          },
+          preco:{
+              avista: data.precopix,
+              debito: data.precodebito,
+              credito: {
+                parcela1: data.parcela1,
+                parcela2: data.parcela2,
+                parcela3: data.parcela3,
+                parcela4: data.parcela4,
+                parcela5: data.parcela5,
+                parcela6: data.parcela6,
+                parcela7: data.parcela7,
+                parcela8: data.parcela8,
+                parcela9: data.parcela9,
+                parcela10: data.parcela10,
+              },
           },
           imagens: [data.imagens],
         }
@@ -198,7 +213,7 @@ const ProdutoAdd = () => {
         </div>
 
         <div className={styles.inputGroup}>
-          <label className={styles.form__label} htmlFor="precopix">
+          <label className={styles.form__label} htmlFor="precodebito">
             Preço no Débito
           </label>
           <input
@@ -213,7 +228,6 @@ const ProdutoAdd = () => {
         </div>
 
         {/* VALORES PARA PARCELAMENTO */}
-        <section>
 
         <div className={styles.inputGroup}>
           <label className={styles.form__label} htmlFor="parcela1">
@@ -260,7 +274,110 @@ const ProdutoAdd = () => {
           )}
         </div>
 
-        </section>
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela4">
+            Preço na Parcela 4x
+          </label>
+          <input
+            name="parcela4"
+            type="text"
+            placeholder={"4x"}
+            {...register("parcela4", { required: true })}
+          />
+          {errors.parcela4 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela5">
+            Preço na Parcela 5x
+          </label>
+          <input
+            name="parcela5"
+            type="text"
+            placeholder={"5x"}
+            {...register("parcela5", { required: true })}
+          />
+          {errors.parcela5 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela6">
+            Preço na Parcela 6x
+          </label>
+          <input
+            name="parcela6"
+            type="text"
+            placeholder={"6x"}
+            {...register("parcela6", { required: true })}
+          />
+          {errors.parcela6 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela7">
+            Preço na Parcela 7x
+          </label>
+          <input
+            name="parcela7"
+            type="text"
+            placeholder={"7x"}
+            {...register("parcela7", { required: true })}
+          />
+          {errors.parcela7 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela8">
+            Preço na Parcela 8x
+          </label>
+          <input
+            name="parcela8"
+            type="text"
+            placeholder={"8x"}
+            {...register("parcela8", { required: true })}
+          />
+          {errors.parcela8 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela9">
+            Preço na Parcela 9x
+          </label>
+          <input
+            name="parcela9"
+            type="text"
+            placeholder={"9x"}
+            {...register("parcela9", { required: true })}
+          />
+          {errors.parcela9 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela10">
+            Preço na Parcela 10x
+          </label>
+          <input
+            name="parcela10"
+            type="text"
+            placeholder={"10x"}
+            {...register("parcela10", { required: true })}
+          />
+          {errors.parcela10 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
 
         <div className={styles.edit__buttons}>
           <button type="submit">Salvar</button>

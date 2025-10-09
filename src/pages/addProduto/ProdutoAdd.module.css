@@ -98,3 +98,24 @@
     width: 75%;
     color: red;
 }
+
+.parcelamentoSection {
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.parcela__input {
+        width: 80%;
+        height: 5vh;
+        border-radius: 10px;
+        border: none;
+        font-size: 1.2rem;
+        text-align: center;
+        outline: none;
+        border: 1px solid rgb(255, 115, 0);
+        appearance: none;
+        margin-top: 10px;
+
+}

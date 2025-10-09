@@ -5,29 +5,34 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 
-
-
-
 const ProdutoForm = () => {
   const { id } = useParams();
   const [getProdutos, setGetProdutos] = useState([]);
-  const { register, handleSubmit, formState: { errors }, reset,} = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      await axios.put(`https://catalogoacbr-production.up.railway.app/smartphones/${id}`, {
-        nome: data.nome,
-        marca: data.marca,
-        precobase: data.preco,
-        detalhes: {
-          armazenamento: data.Armazenamento,
-          bateria: data.bateria,
-          camera: data.camera,
-          memoria: data.memoria,
-          processador: data.processador,
-        },
-        imagens: [data.imagens],
-      });
+      await axios.put(
+        `https://catalogoacbr-production.up.railway.app/smartphones/${id}`,
+        {
+          nome: data.nome,
+          marca: data.marca,
+          precobase: data.preco,
+          detalhes: {
+            armazenamento: data.Armazenamento,
+            bateria: data.bateria,
+            camera: data.camera,
+            memoria: data.memoria,
+            processador: data.processador,
+          },
+          imagens: [data.imagens],
+        }
+      );
       alert("Produto atualizado com sucesso!");
       window.history.back();
     } catch (error) {
@@ -63,12 +68,12 @@ const ProdutoForm = () => {
     getProduto();
   }, [id]);
 
-  if (getProdutos.length === 0) return (
-    <div className={styles.loaderContainer}>
-     <ClipLoader  color="#36d7b1" size={50} />
-    </div>
-
-  );
+  if (getProdutos.length === 0)
+    return (
+      <div className={styles.loaderContainer}>
+        <ClipLoader color="#36d7b1" size={50} />
+      </div>
+    );
 
   return (
     <main className={styles.main}>
@@ -105,18 +110,6 @@ const ProdutoForm = () => {
             type="text"
             placeholder={getProdutos.marca || "none"}
             {...register("marca", { required: true })}
-          />
-        </div>
-
-        <div className={styles.inputGroup}>
-          <label className={styles.form__label} htmlFor="preco">
-            Preço
-          </label>
-          <input
-            name="preco"
-            type="text"
-            placeholder={getProdutos.precobase || "none"}
-            {...register("preco", { required: true })}
           />
         </div>
 
@@ -185,8 +178,193 @@ const ProdutoForm = () => {
         </div>
 
         <hr className={styles.edit__divider} />
+        <h2 className={styles.edit__title}>preços & parcelas</h2>
 
-        <h2 className={styles.edit__title}>Informações do Catalogo</h2>
+        {/* VALORES PARA PARCELAMENTO */}
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="precopix">
+            Preço no Pix / dinheiro
+          </label>
+          <input
+            name="precopix"
+            type="text"
+            placeholder={getProdutos.preco.avista || "Preço do aparelho no pix"}
+            {...register("precopix", { required: true })}
+          />
+          {errors.precopix && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="precodebito">
+            Preço no Débito
+          </label>
+          <input
+            name="precodebito"
+            type="text"
+            placeholder={getProdutos.preco.debito || "Preço do aparelho no débito"}
+            {...register("precodebito", { required: true })}
+          />
+          {errors.precodebito && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela1">
+            Preço da Parcela 1x
+          </label>
+          <input
+            name="parcela1"
+            type="text"
+            placeholder={getProdutos.preco.credito.parcela1 || "sem dados"}
+            {...register("parcela1", { required: true })}
+          />
+          {errors.parcela1 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela2">
+            Preço da Parcela 2x
+          </label>
+          <input
+            name="parcela2"
+            type="text"
+            placeholder={getProdutos.preco.credito.parcela2 || "sem dados"}
+            {...register("parcela2", { required: true })}
+          />
+          {errors.parcela2 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela3">
+            Preço da Parcela 3x
+          </label>
+          <input
+            name="parcela3"
+            type="text"
+            placeholder={getProdutos.preco.credito.parcela3 || "sem dados"}
+            {...register("parcela3", { required: true })}
+          />
+          {errors.parcela3 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela4">
+            Preço da Parcela 4x
+          </label>
+          <input
+            name="parcela4"
+            type="text"
+            placeholder={getProdutos.preco.credito.parcela4 || "sem dados"}
+            {...register("parcela4", { required: true })}
+          />
+          {errors.parcela4 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela5">
+            Preço da Parcela 5x
+          </label>
+          <input
+            name="parcela5"
+            type="text"
+            placeholder={getProdutos.preco.credito.parcela5 || "sem dados"}
+            {...register("parcela5", { required: true })}
+          />
+          {errors.parcela5 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela6">
+            Preço da Parcela 6x
+          </label>
+          <input
+            name="parcela6"
+            type="text"
+            placeholder={getProdutos.preco.credito.parcela6 || "sem dados"}
+            {...register("parcela6", { required: true })}
+          />
+          {errors.parcela6 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela7">
+            Preço da Parcela 7x
+          </label>
+          <input
+            name="parcela7"
+            type="text"
+            placeholder={getProdutos.preco.credito.parcela7 || "sem dados"}
+            {...register("parcela7", { required: true })}
+          />
+          {errors.parcela7 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela8">
+            Preço da Parcela 8x
+          </label>
+          <input
+            name="parcela8"
+            type="text"
+            placeholder={getProdutos.preco.credito.parcela8 || "sem dados"}
+            {...register("parcela8", { required: true })}
+          />
+          {errors.parcela8 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela9">
+            Preço da Parcela 9x
+          </label>
+          <input
+            name="parcela9"
+            type="text"
+            placeholder={getProdutos.preco.credito.parcela9 || "sem dados"}
+            {...register("parcela9", { required: true })}
+          />
+          {errors.parcela9 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.form__label} htmlFor="parcela10">
+            Preço da Parcela 10x
+          </label>
+          <input
+            name="parcela10"
+            type="text"
+            placeholder={getProdutos.preco.credito.parcela10 || "sem dados"}
+            {...register("parcela10", { required: true })}
+          />
+          {errors.parcela10 && (
+            <span className={styles.form__error}>Este campo é obrigatório</span>
+          )}
+        </div>
+
+        <hr className={styles.edit__divider} />
+
+        <h2 className={styles.edit__title}>Imagem no Catalogo</h2>
 
         <div className={styles.inputGroup}>
           <label className={styles.form__label} htmlFor="imagens">
