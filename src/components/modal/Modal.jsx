@@ -14,7 +14,7 @@ const Modal = ({ type, onClose, productName, memory, parcelas }) => {
       setModalType("credito");
     } else {
       setTitle("Cartão de débito");
-      setModalType("debito");
+      setModalType("debito"); 
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [parcelas]);
