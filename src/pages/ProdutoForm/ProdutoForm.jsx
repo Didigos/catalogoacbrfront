@@ -97,7 +97,7 @@ const ProdutoForm = () => {
             name="nome"
             type="text"
             placeholder={getProdutos.nome || "none"}
-            {...register("nome", { required: true })}
+            {...register("nome")}
           />
         </div>
 
@@ -109,7 +109,7 @@ const ProdutoForm = () => {
             name="marca"
             type="text"
             placeholder={getProdutos.marca || "none"}
-            {...register("marca", { required: true })}
+            {...register("marca")}
           />
         </div>
 
@@ -125,7 +125,7 @@ const ProdutoForm = () => {
             name="Armazenamento"
             type="text"
             placeholder={getProdutos.detalhes.armazenamento || "none"}
-            {...register("Armazenamento", { required: true })}
+            {...register("Armazenamento")}
           />
         </div>
 
@@ -137,7 +137,7 @@ const ProdutoForm = () => {
             name="bateria"
             type="text"
             placeholder={getProdutos.detalhes.bateria || "none"}
-            {...register("bateria", { required: true })}
+            {...register("bateria")}
           />
         </div>
 
@@ -149,7 +149,7 @@ const ProdutoForm = () => {
             name="camera"
             type="text"
             placeholder={getProdutos.detalhes.camera || "none"}
-            {...register("camera", { required: true })}
+            {...register("camera")}
           />
         </div>
 
@@ -161,7 +161,7 @@ const ProdutoForm = () => {
             name="memoria"
             type="text"
             placeholder={getProdutos.detalhes.memoria || "none"}
-            {...register("memoria", { required: true })}
+            {...register("memoria")}
           />
         </div>
 
@@ -173,7 +173,7 @@ const ProdutoForm = () => {
             name="processador"
             type="text"
             placeholder={getProdutos.detalhes.processador || "none"}
-            {...register("processador", { required: true })}
+            {...register("processador")}
           />
         </div>
 
@@ -190,7 +190,7 @@ const ProdutoForm = () => {
             name="precopix"
             type="text"
             placeholder={getProdutos.preco.avista || "Preço do aparelho no pix"}
-            {...register("precopix", { required: true })}
+            {...register("precopix")}
           />
           {errors.precopix && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -205,7 +205,7 @@ const ProdutoForm = () => {
             name="precodebito"
             type="text"
             placeholder={getProdutos.preco.debito || "Preço do aparelho no débito"}
-            {...register("precodebito", { required: true })}
+            {...register("precodebito")}
           />
           {errors.precodebito && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -220,7 +220,7 @@ const ProdutoForm = () => {
             name="parcela1"
             type="text"
             placeholder={getProdutos.preco.credito.parcela1 || "sem dados"}
-            {...register("parcela1", { required: true })}
+            {...register("parcela1")}
           />
           {errors.parcela1 && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -235,7 +235,7 @@ const ProdutoForm = () => {
             name="parcela2"
             type="text"
             placeholder={getProdutos.preco.credito.parcela2 || "sem dados"}
-            {...register("parcela2", { required: true })}
+            {...register("parcela2")}
           />
           {errors.parcela2 && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -250,7 +250,7 @@ const ProdutoForm = () => {
             name="parcela3"
             type="text"
             placeholder={getProdutos.preco.credito.parcela3 || "sem dados"}
-            {...register("parcela3", { required: true })}
+            {...register("parcela3")}
           />
           {errors.parcela3 && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -265,7 +265,7 @@ const ProdutoForm = () => {
             name="parcela4"
             type="text"
             placeholder={getProdutos.preco.credito.parcela4 || "sem dados"}
-            {...register("parcela4", { required: true })}
+            {...register("parcela4")}
           />
           {errors.parcela4 && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -280,7 +280,7 @@ const ProdutoForm = () => {
             name="parcela5"
             type="text"
             placeholder={getProdutos.preco.credito.parcela5 || "sem dados"}
-            {...register("parcela5", { required: true })}
+            {...register("parcela5")}
           />
           {errors.parcela5 && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -295,7 +295,7 @@ const ProdutoForm = () => {
             name="parcela6"
             type="text"
             placeholder={getProdutos.preco.credito.parcela6 || "sem dados"}
-            {...register("parcela6", { required: true })}
+            {...register("parcela6")}
           />
           {errors.parcela6 && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -310,7 +310,7 @@ const ProdutoForm = () => {
             name="parcela7"
             type="text"
             placeholder={getProdutos.preco.credito.parcela7 || "sem dados"}
-            {...register("parcela7", { required: true })}
+            {...register("parcela7")}
           />
           {errors.parcela7 && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -325,7 +325,7 @@ const ProdutoForm = () => {
             name="parcela8"
             type="text"
             placeholder={getProdutos.preco.credito.parcela8 || "sem dados"}
-            {...register("parcela8", { required: true })}
+            {...register("parcela8")}
           />
           {errors.parcela8 && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -340,7 +340,7 @@ const ProdutoForm = () => {
             name="parcela9"
             type="text"
             placeholder={getProdutos.preco.credito.parcela9 || "sem dados"}
-            {...register("parcela9", { required: true })}
+            {...register("parcela9")}
           />
           {errors.parcela9 && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -355,7 +355,7 @@ const ProdutoForm = () => {
             name="parcela10"
             type="text"
             placeholder={getProdutos.preco.credito.parcela10 || "sem dados"}
-            {...register("parcela10", { required: true })}
+            {...register("parcela10")}
           />
           {errors.parcela10 && (
             <span className={styles.form__error}>Este campo é obrigatório</span>
@@ -374,7 +374,7 @@ const ProdutoForm = () => {
             name="imagens"
             type="text"
             placeholder={getProdutos.imagens[0] || "none"}
-            {...register("imagens", { required: true })}
+            {...register("imagens")}
           />
         </div>
         <div className={styles.edit__buttons}>
