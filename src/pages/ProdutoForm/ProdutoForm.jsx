@@ -5,15 +5,15 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 
-const ProdutoForm = () => {
-  const { id } = useParams();
-  const [getProdutos, setGetProdutos] = useState([]);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+const ProdutoForm = () => {const { id } = useParams();
+
+
+const [getProdutos, setGetProdutos] = useState([]);
+const defaultValues = {
+  nome: ''
+}
+const {register,handleSubmit,formState: { errors },reset} = useForm({defaultValues});
+
 
   const onSubmit = async (data) => {
     try {
@@ -22,13 +22,28 @@ const ProdutoForm = () => {
         {
           nome: data.nome,
           marca: data.marca,
-          precobase: data.preco,
           detalhes: {
             armazenamento: data.Armazenamento,
             bateria: data.bateria,
             camera: data.camera,
             memoria: data.memoria,
             processador: data.processador,
+          },
+          preco: {
+            avista: data.precopix,
+            debito: data.precodebito,
+            credito: {
+              parcela1: data.parcela1,
+              parcela2: data.parcela2,
+              parcela3: data.parcela3,
+              parcela4: data.parcela4,
+              parcela5: data.parcela5,
+              parcela6: data.parcela6,
+              parcela7: data.parcela7,
+              parcela8: data.parcela8,
+              parcela9: data.parcela9,
+              parcela10: data.parcela10,
+            },
           },
           imagens: [data.imagens],
         }
@@ -42,28 +57,41 @@ const ProdutoForm = () => {
   };
 
   useEffect(() => {
-    if (getProdutos && getProdutos.nome) {
-      reset({
+    if(getProdutos.length !== 0){
+      reset({ 
+        precopix: getProdutos.preco.avista,
+        precodebito: getProdutos.preco.debito,
+        parcela1: getProdutos.preco.credito.parcela1,
+        parcela2: getProdutos.preco.credito.parcela2,
+        parcela3: getProdutos.preco.credito.parcela3,
+        parcela4: getProdutos.preco.credito.parcela4,
+        parcela5: getProdutos.preco.credito.parcela5,
+        parcela6: getProdutos.preco.credito.parcela6,
+        parcela7: getProdutos.preco.credito.parcela7,
+        parcela8: getProdutos.preco.credito.parcela8,
+        parcela9: getProdutos.preco.credito.parcela9,
+        parcela10: getProdutos.preco.credito.parcela10,
+        imagens: getProdutos.imagens[0],
         nome: getProdutos.nome,
         marca: getProdutos.marca,
-        preco: getProdutos.precobase,
         Armazenamento: getProdutos.detalhes.armazenamento,
         bateria: getProdutos.detalhes.bateria,
         camera: getProdutos.detalhes.camera,
         memoria: getProdutos.detalhes.memoria,
         processador: getProdutos.detalhes.processador,
-        imagens: getProdutos.imagens[0],
       });
     }
   }, [getProdutos, reset]);
-
-  useEffect(() => {
+ 
+  useEffect(() => { 
     const getProduto = async () => {
       const response = await axios.get(
         `https://catalogoacbr-production.up.railway.app/smartphones/${id}`
       );
-      // console.log("response", response.data);
       setGetProdutos(response.data);
+      reset({
+        nome: response.data.nome
+      })
     };
     getProduto();
   }, [id]);
@@ -96,7 +124,6 @@ const ProdutoForm = () => {
           <input
             name="nome"
             type="text"
-            placeholder={getProdutos.nome || "none"}
             {...register("nome")}
           />
         </div>
@@ -108,7 +135,6 @@ const ProdutoForm = () => {
           <input
             name="marca"
             type="text"
-            placeholder={getProdutos.marca || "none"}
             {...register("marca")}
           />
         </div>
@@ -124,7 +150,6 @@ const ProdutoForm = () => {
           <input
             name="Armazenamento"
             type="text"
-            placeholder={getProdutos.detalhes.armazenamento || "none"}
             {...register("Armazenamento")}
           />
         </div>
@@ -136,7 +161,6 @@ const ProdutoForm = () => {
           <input
             name="bateria"
             type="text"
-            placeholder={getProdutos.detalhes.bateria || "none"}
             {...register("bateria")}
           />
         </div>
@@ -148,7 +172,6 @@ const ProdutoForm = () => {
           <input
             name="camera"
             type="text"
-            placeholder={getProdutos.detalhes.camera || "none"}
             {...register("camera")}
           />
         </div>
@@ -160,7 +183,6 @@ const ProdutoForm = () => {
           <input
             name="memoria"
             type="text"
-            placeholder={getProdutos.detalhes.memoria || "none"}
             {...register("memoria")}
           />
         </div>
@@ -172,7 +194,6 @@ const ProdutoForm = () => {
           <input
             name="processador"
             type="text"
-            placeholder={getProdutos.detalhes.processador || "none"}
             {...register("processador")}
           />
         </div>
@@ -189,7 +210,6 @@ const ProdutoForm = () => {
           <input
             name="precopix"
             type="text"
-            placeholder={getProdutos.preco.avista || "Preço do aparelho no pix"}
             {...register("precopix")}
           />
           {errors.precopix && (
@@ -204,7 +224,6 @@ const ProdutoForm = () => {
           <input
             name="precodebito"
             type="text"
-            placeholder={getProdutos.preco.debito || "Preço do aparelho no débito"}
             {...register("precodebito")}
           />
           {errors.precodebito && (
@@ -219,7 +238,6 @@ const ProdutoForm = () => {
           <input
             name="parcela1"
             type="text"
-            placeholder={getProdutos.preco.credito.parcela1 || "sem dados"}
             {...register("parcela1")}
           />
           {errors.parcela1 && (
@@ -234,7 +252,6 @@ const ProdutoForm = () => {
           <input
             name="parcela2"
             type="text"
-            placeholder={getProdutos.preco.credito.parcela2 || "sem dados"}
             {...register("parcela2")}
           />
           {errors.parcela2 && (
@@ -249,7 +266,6 @@ const ProdutoForm = () => {
           <input
             name="parcela3"
             type="text"
-            placeholder={getProdutos.preco.credito.parcela3 || "sem dados"}
             {...register("parcela3")}
           />
           {errors.parcela3 && (
@@ -264,7 +280,6 @@ const ProdutoForm = () => {
           <input
             name="parcela4"
             type="text"
-            placeholder={getProdutos.preco.credito.parcela4 || "sem dados"}
             {...register("parcela4")}
           />
           {errors.parcela4 && (
@@ -279,7 +294,6 @@ const ProdutoForm = () => {
           <input
             name="parcela5"
             type="text"
-            placeholder={getProdutos.preco.credito.parcela5 || "sem dados"}
             {...register("parcela5")}
           />
           {errors.parcela5 && (
@@ -294,7 +308,6 @@ const ProdutoForm = () => {
           <input
             name="parcela6"
             type="text"
-            placeholder={getProdutos.preco.credito.parcela6 || "sem dados"}
             {...register("parcela6")}
           />
           {errors.parcela6 && (
@@ -309,7 +322,6 @@ const ProdutoForm = () => {
           <input
             name="parcela7"
             type="text"
-            placeholder={getProdutos.preco.credito.parcela7 || "sem dados"}
             {...register("parcela7")}
           />
           {errors.parcela7 && (
@@ -324,7 +336,6 @@ const ProdutoForm = () => {
           <input
             name="parcela8"
             type="text"
-            placeholder={getProdutos.preco.credito.parcela8 || "sem dados"}
             {...register("parcela8")}
           />
           {errors.parcela8 && (
@@ -339,7 +350,6 @@ const ProdutoForm = () => {
           <input
             name="parcela9"
             type="text"
-            placeholder={getProdutos.preco.credito.parcela9 || "sem dados"}
             {...register("parcela9")}
           />
           {errors.parcela9 && (
@@ -354,7 +364,6 @@ const ProdutoForm = () => {
           <input
             name="parcela10"
             type="text"
-            placeholder={getProdutos.preco.credito.parcela10 || "sem dados"}
             {...register("parcela10")}
           />
           {errors.parcela10 && (
