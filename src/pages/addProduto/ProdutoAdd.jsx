@@ -20,7 +20,7 @@ const ProdutoAdd = () => {
           nome: data.nome,
           marca: data.marca,
           detalhes: {
-            armazenamento: data.armazenamento,
+            armazenamento: data.Armazenamento,
             bateria: data.bateria,
             camera: data.camera,
             memoria: data.memoria,
