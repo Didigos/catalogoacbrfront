@@ -95,3 +95,10 @@
 .whatslogo img {
     width: 100%;
 }
+
+.header__address {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}

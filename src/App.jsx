@@ -41,7 +41,10 @@ function App() {
             </div>
 
           </div>
-          <div className={styles.searchbar}>
+          <div className={styles.header__address}>
+            <p>Av Simão Soares, Barra de Marataízes <br /> Em frente a Nerio & Tania</p>
+          </div>
+          {/* <div className={styles.searchbar}>
             <div className={styles.searchbar__container}>
               <span className={styles.searchbar__icon}>
                 <svg
@@ -61,7 +64,7 @@ function App() {
                 placeholder="Buscar no catalogo"
               />
             </div>
-          </div>
+          </div> */}
         </header>
         {selectedProduct.map(produtos => (
           <Card key={produtos.id} produtos={produtos} />

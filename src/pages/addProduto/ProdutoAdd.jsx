@@ -12,7 +12,6 @@ const ProdutoAdd = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log('dados do formulario: ', data)
     try {
       await axios.post(
         "https://catalogoacbr-production.up.railway.app/smartphones",
