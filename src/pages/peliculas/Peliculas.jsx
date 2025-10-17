@@ -1,4 +1,4 @@
-import styles from './peliculas.module.css'
+
 const Peliculas = () => {
     return (
         <h1>peliculas</h1>
