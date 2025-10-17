@@ -125,7 +125,7 @@ const Card = ({produtos}) => {
           className={styles.price__text}
           style={{ fontSize: ".9rem", fontWeight: "bold", color: "#666" }}
         >
-          { {(produtos.preco.credito.parcela10).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} ou <br />
+          {(produtos.preco.credito.parcela10).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} ou <br />
           <span
             style={{ fontSize: "1.4rem", color: "#46C262", fontWeight: "bold" }}
           >
