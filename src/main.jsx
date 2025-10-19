@@ -11,8 +11,8 @@ import Produtos from "./pages/Produtos/Produtos.jsx";
 import ProdutoForm from "./pages/ProdutoForm/ProdutoForm.jsx";
 import ProdutoAdd from "./pages/addProduto/ProdutoAdd.jsx";
 import Taxa from "./pages/Taxa/Taxa.jsx";
-import Peliculas from "./pages/peliculas/peliculas.jsx";
-
+import Peliculas from "./pages/peliculas/Peliculas.jsx";
+ 
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
