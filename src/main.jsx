@@ -11,7 +11,7 @@ import Produtos from "./pages/Produtos/Produtos.jsx";
 import ProdutoForm from "./pages/ProdutoForm/ProdutoForm.jsx";
 import ProdutoAdd from "./pages/addProduto/ProdutoAdd.jsx";
 import Taxa from "./pages/Taxa/Taxa.jsx";
-import Peliculas from "./pages/peliculas/Peliculas.jsx";
+import Adaptacao from "./pages/Adaptacao/Adaptacao.jsx";
  
 
 createRoot(document.getElementById("root")).render(
@@ -27,7 +27,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/produtos/:id" element={<ProdutoForm />} />
           <Route path="/produtos/add" element={<ProdutoAdd />} />
           <Route path="/admin/produtos/tax" element={<Taxa />} />
-          <Route path="/admin/peliculas" element={<Peliculas />} /> 
+          <Route path="/admin/adaptacao" element={<Adaptacao />} />
         </Routes>
       </ProdutosProvider>
     </TaxasProvider>

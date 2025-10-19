@@ -1,5 +1,5 @@
 import styles from "./peliculas.module.css";
-const Peliculas = () => {
+const Adaptacao = () => {
     return (
         <main className={styles.main}>
             <header className={styles.header}>
@@ -43,4 +43,4 @@ const Peliculas = () => {
     )
 }
 
-export default Peliculas
+export default Adaptacao
