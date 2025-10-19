@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./Adaptacao.module.css";
 import axios from "axios";
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faMinus } from "@fortawesome/free-solid-svg-icons"
 
 
 const Adaptacao = () => {
@@ -52,12 +52,42 @@ const Adaptacao = () => {
                         </div>
                         <div className={styles.adaptacoes}>
                             <ul className={styles.modelo__list}>
-                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
+                                <li className={styles.adaptacao__item}>
+                                     <span>poco x7 pro</span>
+                                     <div className={styles.delete}>
+                                        <FontAwesomeIcon icon={faMinus} color="white"/>
+                                     </div>
+                                </li>
+                                <li className={styles.adaptacao__item}>
+                                     <span>poco x7 pro</span>
+                                     <div className={styles.delete}>
+                                        <FontAwesomeIcon icon={faMinus} color="white"/>
+                                     </div>
+                                </li>
+                                <li className={styles.adaptacao__item}>
+                                     <span>poco x7 pro</span>
+                                     <div className={styles.delete}>
+                                        <FontAwesomeIcon icon={faMinus} color="white"/>
+                                     </div>
+                                </li>
+                                <li className={styles.adaptacao__item}>
+                                     <span>poco x7 pro</span>
+                                     <div className={styles.delete}>
+                                        <FontAwesomeIcon icon={faMinus} color="white"/>
+                                     </div>
+                                </li>
+                                <li className={styles.adaptacao__item}>
+                                     <span>poco x7 pro</span>
+                                     <div className={styles.delete}>
+                                        <FontAwesomeIcon icon={faMinus} color="white"/>
+                                     </div>
+                                </li>
+                                <li className={styles.adaptacao__item}>
+                                     <span>poco x7 pro</span>
+                                     <div className={styles.delete}>
+                                        <FontAwesomeIcon icon={faMinus} color="white"/>
+                                     </div>
+                                </li>
                             </ul>
                         </div>
                     </li>
