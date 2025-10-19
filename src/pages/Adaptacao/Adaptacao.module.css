@@ -70,6 +70,7 @@
     font-size: 1.2rem;
     font-family: var(--font-default);
     padding: 5px;
+    
 }
 
 .searchInput:focus {
@@ -96,6 +97,7 @@
     border-radius: 10px;
     padding: 0 0 10px 0;
     box-shadow: 0 4px 6px rgba(0,0,0,.10), 0 2px 4px rgba(0,0,0,.08);
+    margin-top: 1rem;
 }
 
 .modeloName {
@@ -107,13 +109,31 @@
     font-weight: bold;
 }
 
-.marca {
+.actions {
     background-color: #DAD9D8;
     border-radius: 0 10px 0 0;
     padding: 5px;
     font-size: 1.2rem;
     font-weight: bold;
+    display: flex;
+    gap: .5rem;
+
+    & button {
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        font-size: 1.2rem;
+    }
 }
+
+.actions__add {
+    background-color: rgb(38, 187, 38);
+}
+
+.actions__delete {
+    background-color: rgb(247, 122, 122);
+}
+
 
 /*lista de adaptações*/
 
@@ -123,12 +143,15 @@
 }
 
 .modelo__list {
-    width: 85%;
+    width: 100%;
 
     margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
     gap: .5rem;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 .adaptacao__item {

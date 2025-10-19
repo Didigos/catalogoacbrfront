@@ -1,5 +1,26 @@
+import { useEffect, useState } from "react";
 import styles from "./Adaptacao.module.css";
+import axios from "axios";
+
+
+
+
 const Adaptacao = () => {
+        const [getModels, setModels] = useState([]);
+
+    useEffect(()=>{
+         const getModels = async()=>{
+            try{
+                const response = await axios.get("https://catalogoacbr-production.up.railway.app/adaptacoes");
+                setModels(response.data);
+            }catch(err){
+                console.log(err);
+            }
+        }
+       getModels();
+    },[])
+
+
     return (
         <main className={styles.main}>
             <header className={styles.header}>
@@ -18,25 +39,29 @@ const Adaptacao = () => {
 
 
             <ul className={styles.adaptacoes__list}>
-                <li className={styles.adaptacoes__item}>
-                    <div className={styles.list__header}>
-                        <div className={styles.modeloName}>
-                            <span className={styles.modeloName__text}>Modelo X</span>
+                {getModels.map((model) => (
+                    <li key={model.id} className={styles.adaptacoes__item}>
+                        <div className={styles.list__header}>
+                            <div className={styles.modeloName}>
+                                <span className={styles.modeloName__text}>Modelo X</span>
+                            </div>
+                            <div className={styles.actions}>
+                                <button className={`${styles.actions__edit} ${styles.actions__add}`}>Adicionar</button>
+                                <button className={styles.actions__delete}>Excluir</button>
+                            </div>
                         </div>
-                        <div className={styles.marca}>Samsung</div>
-                    </div>
-                    <div className={styles.adaptacoes}>
-                        <ul className={styles.modelo__list}>
-                            <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                            <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                            <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                            <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                            <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                            <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
-                        </ul>
-                    </div>
-
-                </li>
+                        <div className={styles.adaptacoes}>
+                            <ul className={styles.modelo__list}>
+                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
+                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
+                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
+                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
+                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
+                                <li className={styles.adaptacao__item}> <span>poco x7 pro</span></li>
+                            </ul>
+                        </div>
+                    </li>
+                ))}
             </ul>
 
         </main>
