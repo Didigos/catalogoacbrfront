@@ -1,4 +1,4 @@
-import styles from "./peliculas.module.css";
+import styles from "./Adaptacao.module.css";
 const Adaptacao = () => {
     return (
         <main className={styles.main}>
