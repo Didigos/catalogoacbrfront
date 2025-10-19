@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styles from "./Admin.module.css"
-import { faGear, faCircleExclamation, faUser, faBox, faHouse } from "@fortawesome/free-solid-svg-icons"
+import { faGear, faCircleExclamation, faUser, faBox, faHouse, faClipboardList } from "@fortawesome/free-solid-svg-icons"
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import { useNavigate } from "react-router";
@@ -44,7 +44,7 @@ const Admin = () =>{
             <section className={styles.admin__buttons}>
                 <button onClick={() => alert("Deculpe, este botão está em manutenção. Obrigado pela paciência.")} style={{ backgroundColor: "#A6A2A2" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faUser} /></span>Usuários</button>
                 <button onClick={() => navigate("/produtos")} style={{ backgroundColor: "#FFB042" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faBox} /></span>Produtos</button>
-                {/* <button onClick={() => navigate("/pedidos")} style={{ backgroundColor: "#00a2ff" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faClipboardList} /></span>Pedidos</button> */}
+                <button onClick={() => navigate("/admin/peliculas")} style={{ backgroundColor: "#00a2ff" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faClipboardList} /></span>Peliculas</button>
                 {/* <button onClick={() => navigate("/admin/produtos/tax")} style={{ backgroundColor: "#43B889" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faPercent} /></span>Taxas</button> */}
             </section>
         </main>
