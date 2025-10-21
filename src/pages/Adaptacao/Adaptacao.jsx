@@ -10,6 +10,7 @@ const Adaptacao = () => {
   const [openModal, setOpenModal] = useState(false);
   const [novaAdaptacao, setNovaAdaptacao] = useState("")
   const [idPelicula, setIdPelicula] = useState("")
+  const [removeModel, setRemoveModel] = useState(false)
   
     const API = "https://catalogoacbr-production.up.railway.app"
   useEffect(() => {
@@ -95,6 +96,13 @@ const enviarNovaPelicula = async () => {
   };
 
 
+  const deleteModel = ()=>{
+    if(removeModel) {
+        setRemoveModel(false)
+    }else{
+        setRemoveModel(true)
+    }
+  }
 
 
 return (
@@ -155,6 +163,10 @@ return (
                 ))}
               </ul>
             </div>
+            <button className={removeModel ? styles.delModel:  styles.delModelHidden}>
+                <FontAwesomeIcon icon={faMinus} color="white" />
+            </button>
+
           </li>
         ))}
       </ul>
@@ -175,9 +187,13 @@ return (
       </div>
 
         <div className={styles.editCategory__container}>
-            <button className={`${styles.editCategory__remove} ${styles.editCategory__default}`}>
+            <button onClick={()=>deleteModel()} className={
+                !removeModel ?
+                `${styles.editCategory__remove} ${styles.editCategory__default}` :
+                `${styles.cancelDelModel} ${styles.editCategory__default}`
+                }>
                 <span>
-                    Remove Modelo
+                    {!removeModel ? 'Remover Modelo' : 'Cancelar'}
                 </span>
             </button>
             <button className={`${styles.editCategory__add} ${styles.editCategory__default}`}>
