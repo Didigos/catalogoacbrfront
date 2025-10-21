@@ -47,7 +47,9 @@ const enviarNovaPelicula = async () => {
     const nome = novaAdaptacao.trim();
     if (!idPelicula || !nome) return;
 
-    const { data } = await axios.post(`${API}/${idPelicula}`, { nome });
+    const { data } = await axios.post(`https://catalogoacbr-production.up.railway.app/${idPelicula}`,
+      { nome }
+    );
 
     // garante um id caso o backend não retorne
     const adaptacaoComId = data && data.id ? data : { id: String(Date.now()), nome };
@@ -71,7 +73,7 @@ const enviarNovaPelicula = async () => {
   const handleDelete = async (modeloId, adaptacaoId) => {
     try {
       await axios.delete(
-        `${API}/adaptacoes/${modeloId}/itens/${adaptacaoId}`
+        `https://catalogoacbr-production.up.railway.app/${modeloId}/itens/${adaptacaoId}`
       );
     } catch (err) {
       console.log(err);
