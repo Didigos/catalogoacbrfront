@@ -13,8 +13,12 @@ const Adaptacao = () => {
   const [idPelicula, setIdPelicula] = useState("");
   const [removeModel, setRemoveModel] = useState(false);
   const [opemModalNovaPelicula, setopemModalNovaPelicula] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // estado de pesquisa
 
   const {register, handleSubmit, reset, formState: {errors, isSubmitting}} = useForm({defaultValues: {nome: ""}})
+    const filteredModels = getModels.filter((modelo) =>
+    String(modelo?.modelo ?? "").toLowerCase().includes(searchTerm.toLowerCase())
+  );
   
     const API = "https://catalogoacbr-production.up.railway.app"
   useEffect(() => {
@@ -176,11 +180,13 @@ return (
           type="search"
           name="search"
           id="search"
-          placeholder="Digite o modelo da adaptação"
+          placeholder="Pesquisar por modelo"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
 
       <ul className={styles.adaptacoes__list}>
-        {getModels.map((model) => (
+        {filteredModels.map((model) => (
           <li key={model.id} className={styles.adaptacoes__item}>
             <div className={styles.list__header}>
               <div className={styles.modeloName}>
