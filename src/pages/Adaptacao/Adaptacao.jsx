@@ -25,13 +25,13 @@ const Adaptacao = () => {
     fetchModels();
   }, []);
 
-  const showDeleteItem = () => {
-    if (!getActions) {
-      setActions(true);
-    } else {
-        setActions(false)
-    }
-  };
+    const showDeleteItem = () => {
+        if (!getActions) {
+        setActions(true);
+        } else {
+            setActions(false)
+        }
+    };
 
     const alterarModal = (idPelicula) => {
         if(openModal) {
@@ -43,64 +43,79 @@ const Adaptacao = () => {
         }
     }
 
-const enviarNovaPelicula = async () => {
-  try {
-    const nome = novaAdaptacao.trim();
-    if (!idPelicula || !nome) return;
-
-    const { data } = await axios.post(`https://catalogoacbr-production.up.railway.app/adaptacoes/${idPelicula}`,
-      { nome }
-    );
-
-    // garante um id caso o backend não retorne
-    const adaptacaoComId = data && data.id ? data : { id: String(Date.now()), nome };
-
-    setModels((prevModels) =>
-      prevModels.map((modelo) =>
-        modelo.id === idPelicula
-          ? { ...modelo, adaptacoes: [...modelo.adaptacoes, adaptacaoComId] }
-          : modelo
-      )
-    );
-
-    setNovaAdaptacao("");
-    setOpenModal(false);
-  } catch (err) {
-    console.log(err);
-  }
-};  
-
-
-  const handleDelete = async (ModeloMae, itemId) => {
+    const enviarNovaPelicula = async () => {
     try {
-      await axios.delete(
-        `https://catalogoacbr-production.up.railway.app/adaptacoes/${ModeloMae}/itens/${itemId}`
-      );
+        const nome = novaAdaptacao.trim();
+        if (!idPelicula || !nome) return;
+
+        const { data } = await axios.post(`https://catalogoacbr-production.up.railway.app/adaptacoes/${idPelicula}`,
+        { nome }
+        );
+
+        // garante um id caso o backend não retorne
+        const adaptacaoComId = data && data.id ? data : { id: String(Date.now()), nome };
+
+        setModels((prevModels) =>
+        prevModels.map((modelo) =>
+            modelo.id === idPelicula
+            ? { ...modelo, adaptacoes: [...modelo.adaptacoes, adaptacaoComId] }
+            : modelo
+        )
+        );
+
+        setNovaAdaptacao("");
+        setOpenModal(false);
+    } catch (err) {
+        console.log(err);
+    }
+    };  
+
+
+    const handleDelete = async (ModeloMae, itemId) => {
+        try {
+        await axios.delete(
+            `https://catalogoacbr-production.up.railway.app/adaptacoes/${ModeloMae}/itens/${itemId}`
+        );
+        } catch (err) {
+        console.log(err);
+        } finally {
+        setModels((prevModels) =>
+            prevModels.map((modelo) =>
+            modelo.id === ModeloMae
+                ? {
+                    ...modelo,
+                    adaptacoes: modelo.adaptacoes.filter(
+                    (adaptacao) => adaptacao.id !== itemId
+                    ),
+                }
+                : modelo
+            )
+        );
+        setActions(false);
+        }
+    };
+
+
+    const deleteModel = ()=>{
+        if(removeModel) {
+            setRemoveModel(false)
+        }else{
+            setRemoveModel(true)
+        }
+    }
+
+  const removePelicula = async (modeloId) => {
+    if (!modeloId) return;
+    try {
+      await axios.delete(`${API}/adaptacoes/${modeloId}`);
+      // remove o modelo do estado local
+      setModels((prevModels) => prevModels.filter((modelo) => modelo.id !== modeloId));
     } catch (err) {
       console.log(err);
     } finally {
-      setModels((prevModels) =>
-        prevModels.map((modelo) =>
-          modelo.id === ModeloMae
-            ? {
-                ...modelo,
-                adaptacoes: modelo.adaptacoes.filter(
-                  (adaptacao) => adaptacao.id !== itemId
-                ),
-              }
-            : modelo
-        )
-      );
+      setRemoveModel(false);
       setActions(false);
-    }
-  };
-
-
-  const deleteModel = ()=>{
-    if(removeModel) {
-        setRemoveModel(false)
-    }else{
-        setRemoveModel(true)
+      if (openModal) setOpenModal(false);
     }
   }
 
@@ -163,7 +178,7 @@ return (
                 ))}
               </ul>
             </div>
-            <button className={removeModel ? styles.delModel:  styles.delModelHidden}>
+      <button onClick={() => removePelicula(model.id)} className={removeModel ? styles.delModel:  styles.delModelHidden}>
                 <FontAwesomeIcon icon={faMinus} color="white" />
             </button>
 
