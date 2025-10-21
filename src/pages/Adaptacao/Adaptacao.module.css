@@ -45,24 +45,10 @@
     color: white;
 }
 
-/*barra de busca*/
-.searchContainer {
-    width: 93vw;
-    padding: 5px;
-    margin-top: 10px;
-    height: 5dvh;
-    display: flex;
-    justify-content:end;
-    align-items: center;
-    display: flex;
-    gap: .3rem;
-
- 
-}
 
 .searchInput {
-    width: 100%;
-    height: 90%;
+    width: 90%;
+    height: 6vh;
     border-radius: 7px;
     outline: none;
     border: none;
@@ -70,6 +56,7 @@
     font-size: 1.2rem;
     font-family: var(--font-default);
     padding: 5px;
+    margin-top: 10px;
     
 }
 
@@ -295,4 +282,34 @@
 }
 .editCategory__remove {
     background-color: rgb(247, 122, 122);
+}
+
+.novaPelicula {
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.486);
+}
+
+.novaPelicula__formulario {
+    display: flex;
+    flex-direction: column;
+
+    & input {
+        width: 300px;
+        height: 50px;
+        border-radius: 10px;
+        border: none;
+        font-size: 1.2rem;
+        color: gray;
+    }
+
+    & label {
+        font-size: 1.2rem;
+        color: white;
+    }
 }

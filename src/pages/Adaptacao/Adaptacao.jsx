@@ -3,14 +3,18 @@ import styles from "./Adaptacao.module.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { useForm } from "react-hook-form";
 
 const Adaptacao = () => {
   const [getModels, setModels] = useState([]);
   const [getActions, setActions] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [novaAdaptacao, setNovaAdaptacao] = useState("")
-  const [idPelicula, setIdPelicula] = useState("")
-  const [removeModel, setRemoveModel] = useState(false)
+  const [novaAdaptacao, setNovaAdaptacao] = useState("");
+  const [idPelicula, setIdPelicula] = useState("");
+  const [removeModel, setRemoveModel] = useState(false);
+  const [opemModalNovaPelicula, setopemModalNovaPelicula] = useState(false);
+
+  const {register, handleSubmit, reset, formState: {errors, isSubmitting}} = useForm({defaultValues: {nome: ""}})
   
     const API = "https://catalogoacbr-production.up.railway.app"
   useEffect(() => {
@@ -34,13 +38,28 @@ const Adaptacao = () => {
     };
 
     const alterarModal = (idPelicula) => {
-        if(openModal) {
-            setOpenModal(false)
-        }else{
-            setOpenModal(true)
-            setIdPelicula(idPelicula)
-            setNovaAdaptacao("")
+        if (openModal) {
+        setOpenModal(false);
+        reset(); // limpa o formulário ao fechar
+        } else {
+        setOpenModal(true);
+        setIdPelicula(idPelicula);
+        setNovaAdaptacao("");
+        reset({ nome: "" }); // inicia vazio ao abrir
         }
+    };
+
+    const alterarModalNovaPelicula = ()=>{
+        if (opemModalNovaPelicula) {
+        setopemModalNovaPelicula(false);
+        reset(); // limpa o formulário ao fechar
+        } else {
+        setopemModalNovaPelicula(true);
+        setIdPelicula(idPelicula);
+        setNovaAdaptacao("");
+        reset({ nome: "" }); // inicia vazio ao abrir
+        }
+
     }
 
     const enviarNovaPelicula = async () => {
@@ -104,21 +123,39 @@ const Adaptacao = () => {
         }
     }
 
-  const removePelicula = async (modeloId) => {
-    if (!modeloId) return;
-    try {
-      await axios.delete(`${API}/adaptacoes/${modeloId}`);
-      // remove o modelo do estado local
-      setModels((prevModels) => prevModels.filter((modelo) => modelo.id !== modeloId));
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setRemoveModel(false);
-      setActions(false);
-      if (openModal) setOpenModal(false);
+    const removePelicula = async (modeloId) => {
+        if (!modeloId) return;
+        try {
+        await axios.delete(`${API}/adaptacoes/${modeloId}`);
+        // remove o modelo do estado local
+        setModels((prevModels) => prevModels.filter((modelo) => modelo.id !== modeloId));
+        } catch (err) {
+        console.log(err);
+        } finally {
+        setRemoveModel(false);
+        setActions(false);
+        if (openModal) setOpenModal(false);
+        }
     }
-  }
 
+    const enviarPelicula = async (nomeInput) => {
+        try {
+            const modelo = String(nomeInput ?? "").trim();
+            if (!modelo) return;
+
+            const { data: novoModelo } = await axios.post(
+            `${API}/adaptacoes`,
+            { modelo } // backend aceita "modelo" (ou "nome")
+            );
+
+            setModels((prevModels) => [...prevModels, novoModelo]); // adiciona o novo modelo na lista
+
+            reset();                      // limpa o form
+            setopemModalNovaPelicula(false); // fecha o modal
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
 return (
     <main className={styles.main}>
@@ -134,7 +171,6 @@ return (
         </span>
       </div>
 
-      <div className={styles.searchContainer}>
         <input
           className={styles.searchInput}
           type="search"
@@ -142,7 +178,6 @@ return (
           id="search"
           placeholder="Digite o modelo da adaptação"
         />
-      </div>
 
       <ul className={styles.adaptacoes__list}>
         {getModels.map((model) => (
@@ -211,7 +246,7 @@ return (
                     {!removeModel ? 'Remover Modelo' : 'Cancelar'}
                 </span>
             </button>
-            <button className={`${styles.editCategory__add} ${styles.editCategory__default}`}>
+            <button onClick={()=>alterarModalNovaPelicula()} className={`${styles.editCategory__add} ${styles.editCategory__default}`}>
                 <span>
                     Adicionar Modelo
                 </span>
@@ -219,6 +254,27 @@ return (
 
         </div>
 
+        <div className={opemModalNovaPelicula ? styles.novaPelicula : styles.close__modal}>
+            <form className={styles.novaPelicula__formulario} onSubmit={handleSubmit(({ nome }) => enviarPelicula(nome))}>
+                <label htmlFor="addItem">Adicione o nome da Película</label>
+                <input
+                    type="text"
+                    id="addItem"
+                    placeholder="Ex.: Poco X7"
+                    {...register("nome", {
+                    required: "Campo Obrigatório",
+                    minLength: { value: 2, message: "Mínimo de 2 caracteres" }
+                    })}
+                />
+                {errors.nome && <small style={{ color: "crimson" }}>{errors.nome.message}</small>}
+                <div className={styles.addItem__btn}>
+                    <button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Salvando..." : "Salvar"}
+                </button>
+                    <button type="button" onClick={() => alterarModalNovaPelicula()}>Cancelar</button>
+                </div>
+            </form>
+        </div>
     </main>
   );
 };
