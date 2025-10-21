@@ -47,7 +47,7 @@ const enviarNovaPelicula = async () => {
     const nome = novaAdaptacao.trim();
     if (!idPelicula || !nome) return;
 
-    const { data } = await axios.post(`https://catalogoacbr-production.up.railway.app/${idPelicula}`,
+    const { data } = await axios.post(`https://catalogoacbr-production.up.railway.app/adaptacoes/${idPelicula}`,
       { nome }
     );
 
