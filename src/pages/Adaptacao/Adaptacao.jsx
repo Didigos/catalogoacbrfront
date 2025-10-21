@@ -70,21 +70,21 @@ const enviarNovaPelicula = async () => {
 };  
 
 
-  const handleDelete = async (modeloId, adaptacaoId) => {
+  const handleDelete = async (ModeloMae, itemId) => {
     try {
       await axios.delete(
-        `https://catalogoacbr-production.up.railway.app/${modeloId}/itens/${adaptacaoId}`
+        `https://catalogoacbr-production.up.railway.app/adaptacoes/${ModeloMae}/itens/${itemId}`
       );
     } catch (err) {
       console.log(err);
     } finally {
       setModels((prevModels) =>
         prevModels.map((modelo) =>
-          modelo.id === modeloId
+          modelo.id === ModeloMae
             ? {
                 ...modelo,
                 adaptacoes: modelo.adaptacoes.filter(
-                  (adaptacao) => adaptacao.id !== adaptacaoId
+                  (adaptacao) => adaptacao.id !== itemId
                 ),
               }
             : modelo
