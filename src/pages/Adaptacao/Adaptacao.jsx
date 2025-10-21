@@ -11,13 +11,11 @@ const Adaptacao = () => {
   const [novaAdaptacao, setNovaAdaptacao] = useState("")
   const [idPelicula, setIdPelicula] = useState("")
   
-
+    const API = "https://catalogoacbr-production.up.railway.app"
   useEffect(() => {
     const fetchModels = async () => {
       try {
-        const response = await axios.get(
-          "https://catalogoacbr-production.up.railway.app/adaptacoes"
-        );
+        const response = await axios.get(`${API}/adaptacoes`);
         setModels(response.data);
       } catch (err) {
         console.log(err);
@@ -49,10 +47,7 @@ const enviarNovaPelicula = async () => {
     const nome = novaAdaptacao.trim();
     if (!idPelicula || !nome) return;
 
-    const { data } = await axios.post(
-      `http://localhost:3000/adaptacoes/${idPelicula}`,
-      { nome }
-    );
+    const { data } = await axios.post(`${API}/${idPelicula}`, { nome });
 
     // garante um id caso o backend não retorne
     const adaptacaoComId = data && data.id ? data : { id: String(Date.now()), nome };
@@ -76,7 +71,7 @@ const enviarNovaPelicula = async () => {
   const handleDelete = async (modeloId, adaptacaoId) => {
     try {
       await axios.delete(
-        `http://localhost:3000/adaptacoes/${modeloId}/itens/${adaptacaoId}`
+        `${API}/adaptacoes/${modeloId}/itens/${adaptacaoId}`
       );
     } catch (err) {
       console.log(err);
