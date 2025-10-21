@@ -7,10 +7,13 @@ import { faMinus } from "@fortawesome/free-solid-svg-icons";
 const Adaptacao = () => {
   const [getModels, setModels] = useState([]);
   const [getActions, setActions] = useState(false);
-  const [openModal, setOpenModal] = useState(false)
+  const [openModal, setOpenModal] = useState(false);
+  const [novaAdaptacao, setNovaAdaptacao] = useState("")
+  const [idPelicula, setIdPelicula] = useState("")
+  
 
   useEffect(() => {
-    const getModels = async () => {
+    const fetchModels = async () => {
       try {
         const response = await axios.get(
           "https://catalogoacbr-production.up.railway.app/adaptacoes"
@@ -20,7 +23,7 @@ const Adaptacao = () => {
         console.log(err);
       }
     };
-    getModels();
+    fetchModels();
   }, []);
 
   const showDeleteItem = () => {
@@ -30,6 +33,45 @@ const Adaptacao = () => {
         setActions(false)
     }
   };
+
+    const alterarModal = (idPelicula) => {
+        if(openModal) {
+            setOpenModal(false)
+        }else{
+            setOpenModal(true)
+            setIdPelicula(idPelicula)
+            setNovaAdaptacao("")
+        }
+    }
+
+const enviarNovaPelicula = async () => {
+  try {
+    const nome = novaAdaptacao.trim();
+    if (!idPelicula || !nome) return;
+
+    const { data } = await axios.post(
+      `http://localhost:3000/adaptacoes/${idPelicula}`,
+      { nome }
+    );
+
+    // garante um id caso o backend não retorne
+    const adaptacaoComId = data && data.id ? data : { id: String(Date.now()), nome };
+
+    setModels((prevModels) =>
+      prevModels.map((modelo) =>
+        modelo.id === idPelicula
+          ? { ...modelo, adaptacoes: [...modelo.adaptacoes, adaptacaoComId] }
+          : modelo
+      )
+    );
+
+    setNovaAdaptacao("");
+    setOpenModal(false);
+  } catch (err) {
+    console.log(err);
+  }
+};  
+
 
   const handleDelete = async (modeloId, adaptacaoId) => {
     try {
@@ -55,13 +97,7 @@ const Adaptacao = () => {
     }
   };
 
-const handleAdd = async () => {
-    if(openModal){
-        setOpenModal(false)
-    }else {
-        setOpenModal(true)
-    }
-};
+
 
 
 return (
@@ -93,10 +129,10 @@ return (
           <li key={model.id} className={styles.adaptacoes__item}>
             <div className={styles.list__header}>
               <div className={styles.modeloName}>
-                <span className={styles.modeloName__text}>Modelo X</span>
+                <span className={styles.modeloName__text}>{model.modelo}</span>
               </div>
               <div className={styles.actions}>
-                <button onClick={()=> handleAdd()} className={`${styles.actions__edit} ${styles.actions__add}`}>
+                <button onClick={()=> alterarModal(model.id)} className={`${styles.actions__edit} ${styles.actions__add}`}>
                   Adicionar
                 </button>
                 <button onClick={() => showDeleteItem()} className={!getActions ?  styles.actions__delete : styles.actions__cancelDelete}>
@@ -106,9 +142,12 @@ return (
             </div>
             <div className={styles.adaptacoes}>
               <ul className={styles.modelo__list}>
-                {model.adaptacoes.map((adaptacao) => (
-                  <li key={adaptacao.id} className={ styles.adaptacao__item}>
-                    <span>{adaptacao.nome}</span>
+                {model.adaptacoes.map((adaptacao, idx) => (
+                  <li
+                    key={adaptacao?.id ?? `${model.id}-${(adaptacao?.nome ?? adaptacao)}-${idx}`}
+                    className={ styles.adaptacao__item}
+                  >
+                    <span>{typeof adaptacao === 'string' ? adaptacao : adaptacao.nome}</span>
                     <button
                       onClick={() => handleDelete(model.id, adaptacao.id)}
                       className={getActions ? styles.delete : styles.delHiddel}
@@ -125,12 +164,33 @@ return (
 
       <div className={openModal ? styles.modal : styles.close__modal}>
         <label htmlFor="addItem">Adicione o nome da Película</label>
-        <input type="text" name="addItem" id="addItem" />
+        <input 
+            type="text" 
+            name="addItem" 
+            id="addItem" 
+            value={novaAdaptacao ? novaAdaptacao : ""} 
+            onChange={(event)=> setNovaAdaptacao(event.target.value)}
+        />
         <div className={styles.addItem__btn}>
-            <button type="submit">Salvar</button>
-            <button onClick={()=> handleAdd()} >Cancelar</button>
+            <button onClick={enviarNovaPelicula} type="button">Salvar</button>
+            <button onClick={()=> alterarModal()} >Cancelar</button>
         </div>
       </div>
+
+        <div className={styles.editCategory__container}>
+            <button className={`${styles.editCategory__remove} ${styles.editCategory__default}`}>
+                <span>
+                    Remove Modelo
+                </span>
+            </button>
+            <button className={`${styles.editCategory__add} ${styles.editCategory__default}`}>
+                <span>
+                    Adicionar Modelo
+                </span>
+            </button>
+
+        </div>
+
     </main>
   );
 };
