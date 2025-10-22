@@ -249,12 +249,12 @@ return (
                 `${styles.cancelDelModel} ${styles.editCategory__default}`
                 }>
                 <span>
-                    {!removeModel ? 'Remover Modelo' : 'Cancelar'}
+                    {!removeModel ? 'Remover Peícula' : 'Cancelar'}
                 </span>
             </button>
             <button onClick={()=>alterarModalNovaPelicula()} className={`${styles.editCategory__add} ${styles.editCategory__default}`}>
                 <span>
-                    Adicionar Modelo
+                    Adicionar Película
                 </span>
             </button>
 
