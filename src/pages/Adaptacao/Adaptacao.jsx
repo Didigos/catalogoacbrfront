@@ -227,21 +227,6 @@ return (
         ))}
       </ul>
 
-      <div className={openModal ? styles.modal : styles.close__modal}>
-        <label htmlFor="addItem">Adicione o nome da Película</label>
-        <input 
-            type="text" 
-            name="addItem" 
-            id="addItem" 
-            value={novaAdaptacao ? novaAdaptacao : ""} 
-            onChange={(event)=> setNovaAdaptacao(event.target.value)}
-        />
-        <div className={styles.addItem__btn}>
-            <button onClick={enviarNovaPelicula} type="button">Salvar</button>
-            <button onClick={()=> alterarModal()} >Cancelar</button>
-        </div>
-      </div>
-
         <div className={styles.editCategory__container}>
             <button onClick={()=>deleteModel()} className={
                 !removeModel ?
@@ -281,6 +266,21 @@ return (
                 </div>
             </form>
         </div>
+              <div className={openModal ? styles.modal : styles.close__modal}>
+        <label htmlFor="addItem">Adicione o nome da Adaptação</label>
+        <input 
+            type="text" 
+            name="addItem" 
+            id="addItem" 
+            value={novaAdaptacao ? novaAdaptacao : ""} 
+            onChange={(event)=> setNovaAdaptacao(event.target.value)}
+        />
+        <div className={styles.addItem__btn}>
+            <button onClick={enviarNovaPelicula} type="button">Salvar</button>
+            <button onClick={()=> alterarModal()} >Cancelar</button>
+        </div>
+      </div>
+
     </main>
   );
 };
