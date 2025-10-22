@@ -69,6 +69,7 @@
 
 .adaptacoes__list {
     width: 100%;
+    height: 64dvh;
     overflow: scroll;
     position: relative;
     padding: 10px;
