@@ -11,7 +11,6 @@ export function ClientesProvider ({ children }) {
     axios.get("https://catalogoacbr-production.up.railway.app/clientes")
       .then((res) => {
         setClientes(res.data)
-        console.log('clientes: ', res.data)
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
