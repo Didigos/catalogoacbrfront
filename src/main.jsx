@@ -7,6 +7,7 @@ import Admin from "./pages/admin/Admin.jsx";
 import { ProdutosProvider } from "./context/produtosProvider.jsx";
 import { TaxasProvider } from "./context/taxasProvider.jsx";
 import { UserProvider } from "./context/UserProvider.jsx";
+import { ClientesProvider } from "./context/ClientesProvider.jsx"
 import Produtos from "./pages/Produtos/Produtos.jsx";
 import ProdutoForm from "./pages/ProdutoForm/ProdutoForm.jsx";
 import ProdutoAdd from "./pages/addProduto/ProdutoAdd.jsx";
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")).render(
   <UserProvider>
     <TaxasProvider>
       <ProdutosProvider>
+        <ClientesProvider>
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
@@ -29,6 +31,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/admin/produtos/tax" element={<Taxa />} />
           <Route path="/admin/adaptacao" element={<Adaptacao />} />
         </Routes>
+        </ClientesProvider>
       </ProdutosProvider>
     </TaxasProvider>
     </UserProvider>
