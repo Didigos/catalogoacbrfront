@@ -26,6 +26,28 @@
         color: #ffffff;
     }
 
+        .seach__container {
+        width: 100%;
+        min-height: 5vh;
+        display: flex;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+    }
+
+    .search__input {
+        width: 300px;
+        height: 50px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+
     .list__item {
         min-width: 100%;
         min-height: 60px;
@@ -46,24 +68,22 @@
         }
     }
 
-    .seach__container {
-        width: 100%;
-        min-height: 5vh;
+    .list__item__container {
+        min-width: 100%;
+       height: 100%;
+        border-radius: 20px;
         display: flex;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 5px;
+        gap: .5rem;
+        padding-top: 20px;
+        padding-left: 5px;
+        font-size: .6rem;
     }
 
-    .search__input {
-        width: 300px;
-        height: 50px;
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-        text-align: center;
-        font-size: 1.2rem;
+    .container__clientName {
+        & h1 {
+            text-align: center;
+            font-weight: bold;
+        }
     }
+
 }

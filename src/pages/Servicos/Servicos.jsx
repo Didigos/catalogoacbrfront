@@ -7,14 +7,24 @@ const Servicos = () => {
       </header>
 
       <div className={styles.seach__container}>
-        <input placeholder="digite o nome do cliente" className={styles.search__input} type="search" name="" id="" />
+        <input placeholder="Pesquise pelo nome do cliente" className={styles.search__input} type="search" name="" id="" />
       </div>
 
       <ul className={styles.list__section}>
         <li className={styles.list__item}>
           <div className={styles.list__item__title}>
-            <span>OS N: 001</span>
+            <span>OS Nº 001</span>
           </div>
+            <div className={styles.list__item__container}>
+                <div className={styles.container__clientName}>
+                    <h1>CLIENTE</h1>
+                    <span>Diego Pires Gomes</span>
+                </div>
+                <div className={styles.date__join}>
+                    <h1>ENTRADA</h1>
+                    <span>11/10/2025</span>
+                </div>
+            </div>
         </li>
       </ul>
     </main>
