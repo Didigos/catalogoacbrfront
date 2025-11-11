@@ -1,5 +1,9 @@
 .servicos__main {
-    width: 100vw;
-    min-height: 100dvh;
+    width: 90vw;
+    min-height: 90dvh;
     border: 1px solid black;
+}
+
+.titulo {
+    color: red;
 }

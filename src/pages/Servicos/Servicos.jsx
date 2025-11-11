@@ -2,7 +2,7 @@ import styles from './Servicos.module.css'
 const Servicos = ()=>{
     return (
         <main className={styles.servicos__main}>
-            <h2>Serviços</h2>
+            <h2 className={styles.titulo}>Serviços</h2>
         </main>
     )
 }
