@@ -24,6 +24,15 @@ const Servicos = () => {
                     <h1>ENTRADA</h1>
                     <span>11/10/2025</span>
                 </div>
+                <div className={styles.date__left}>
+                    <h1>SAÍDA</h1>
+                    <span>12/10/2025</span>
+                </div>
+                <div className={styles.actions} >
+                    <div className={`${styles.action__edit} ${styles.action__btn}`}></div>
+                    <div className={`${styles.action__delete} ${styles.action__btn}`}></div>
+                    <div className={`${styles.action__print} ${styles.action__btn}`}></div>
+                </div>
             </div>
         </li>
       </ul>
