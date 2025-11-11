@@ -1,5 +1,5 @@
 import styles from "./Clientes.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import ClienteContext from "../../context/clientesContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faRotateLeft, faPhone, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +10,6 @@ const Clientes = () => {
   const { clientes, loading, fetchClientes } = useContext(ClienteContext);
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [openModal, setOpenModal] = useState(false);
-  const [message, setMessage] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filtrar clientes baseado no termo de busca
@@ -26,7 +25,6 @@ const Clientes = () => {
         celular: data.telefone
       });
       console.log(response.data);
-      setMessage(response.data);
       
       // Atualiza a lista automaticamente
       fetchClientes();

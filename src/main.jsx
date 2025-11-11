@@ -14,6 +14,7 @@ import ProdutoAdd from "./pages/addProduto/ProdutoAdd.jsx";
 import Taxa from "./pages/Taxa/Taxa.jsx";
 import Adaptacao from "./pages/Adaptacao/Adaptacao.jsx";
 import Clientes from "./pages/clientes/Clientes.jsx";
+import Servicos from "./pages/Servicos/Servicos.jsx";
  
 
 createRoot(document.getElementById("root")).render(
@@ -32,6 +33,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/admin/produtos/tax" element={<Taxa />} />
           <Route path="/admin/adaptacao" element={<Adaptacao />} />
           <Route path="/admin/clientes" element={<Clientes />} />
+          <Route path="/admin/servicos" element={<Servicos />} />
         </Routes>
         </ClientesProvider>
       </ProdutosProvider>

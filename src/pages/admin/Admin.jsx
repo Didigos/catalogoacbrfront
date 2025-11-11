@@ -46,6 +46,7 @@ const Admin = () =>{
                 <button onClick={() => navigate("/produtos")} style={{ backgroundColor: "#FFB042" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faBox} /></span>Smartphones</button>
                 <button onClick={() => navigate("/admin/adaptacao")} style={{ backgroundColor: "#00a2ff" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faClipboardList} /></span>Peliculas</button>
                 <button onClick={() => navigate("/admin/clientes")} style={{ backgroundColor: "#43B889" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faUsers} /></span>Clientes</button>
+                <button onClick={() => navigate("/admin/servicos")} style={{ backgroundColor: "#43B889" }} className={styles.admin__button__item}><span><FontAwesomeIcon size="2x" color="#ffffff" icon={faUsers} /></span>Serviços</button>
             </section>
         </main>
     )
